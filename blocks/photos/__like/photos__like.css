@@ -1,0 +1,10 @@
+.photos__like {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.photos__like:hover {
+
+}

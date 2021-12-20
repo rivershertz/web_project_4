@@ -1,0 +1,11 @@
+.profile__edit {
+    width: 10px;
+    height: 10px;
+    padding: 7px;
+    outline: 1px solid #fff;
+    cursor: pointer;
+}
+
+.profile__edit:hover {
+    opacity: .6;
+}
