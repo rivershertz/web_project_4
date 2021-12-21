@@ -3,8 +3,9 @@
     padding: 0;
     cursor: pointer;
     z-index: 1;
+    position: relative;
 }
 
 .photos__like:hover {
-
+    opacity: .6;
 }
