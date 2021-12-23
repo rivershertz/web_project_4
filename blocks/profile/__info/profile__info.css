@@ -5,6 +5,21 @@
     color: #fff;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
+}
+
+@media screen and (max-width: 581px) {
+    .profile__info {
+        max-width: 450px;
+        align-items: center;
+        margin: 26px 0 0;
+    }
+}
+
+@media screen and (max-width:320px) {
+    .profile__info {
+        max-width: 100%;
+        align-items: center;
+    }
 }
