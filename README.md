@@ -1,16 +1,13 @@
-# Project 4: Around The U.S.
+## Project 4:
+# [Around The U.S.]
+### Interactive and functional web development part-1
 
-### Overview
+#### Description
+This project containes a fake feed in a social media fashion, at this stage you can edit the profile "name" and "about me" fields but the values wont be saved after a refresh is done to the page because the site isnt connected to a data-base. In this project, I have implemented my first lines of JavaScript and it was a lot of fun and very interesting to try a different method of creation which is not very visual like css.
 
-* Figma
-* Images
+##### Technologies
+* HTML
+* css
+* JavaScript
 
-**Figma**
-
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
-
-**Images**
-
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-
-Have fun with JavaScript!
+* [Here is the link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)

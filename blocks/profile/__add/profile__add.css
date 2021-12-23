@@ -1,18 +1,18 @@
 .profile__add {
-    width: 22px;
-    height: 22px;
-    padding: 14px 64px;
-    border: 1px solid #fff;
-    margin: 0 0 0 auto;
-    cursor: pointer;
+  width: 22px;
+  height: 22px;
+  padding: 14px 64px;
+  border: 1px solid #fff;
+  margin: 0 0 0 auto;
+  cursor: pointer;
 }
 
 .profile__add:hover {
-    opacity: .6;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 581px) {
-    .profile__add{
-        margin: 36px auto 0;
-    }
+  .profile__add {
+    margin: 36px auto 0;
+  }
 }

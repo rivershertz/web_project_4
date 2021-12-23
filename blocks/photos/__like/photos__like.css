@@ -1,10 +1,10 @@
 .photos__like {
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-    position: relative;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
 }
 
 .photos__like:hover {
-    opacity: .6;
+  opacity: 0.6;
 }
