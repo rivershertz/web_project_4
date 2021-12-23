@@ -1,5 +1,5 @@
 ## Project 4:
-# [Around The U.S.]
+# [Around The U.S.](https://rivershertz.github.io/web_project_4/)
 ### Interactive and functional web development part-1
 
 #### Description
@@ -10,4 +10,4 @@ This project containes a fake feed in a social media fashion, at this stage you 
 * css
 * JavaScript
 
-* [Here is the link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+Here is the [link to the project](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1) in Figma
