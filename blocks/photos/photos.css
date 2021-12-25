@@ -16,14 +16,12 @@
 @media screen and (max-width: 581px) {
   .photos {
     max-width: 450px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   }
 }
 
 @media screen and (max-width: 417px) {
   .photos {
     max-width: 282px;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
     margin: 36px auto 0;
   }
 }

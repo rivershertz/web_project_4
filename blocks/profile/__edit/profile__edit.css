@@ -1,6 +1,10 @@
 .profile__edit {
-  width: 10px;
-  height: 10px;
+  width: 24px;
+  height: 24px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 7px;
   outline: 1px solid #fff;
   cursor: pointer;

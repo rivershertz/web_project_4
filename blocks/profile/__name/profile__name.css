@@ -7,6 +7,21 @@
   margin: 0 18px 0 0;
   padding: 0;
   white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@media screen and (max-width: 470px) {
+  .profile__name {
+    font-size: 37px;
+    line-height: 37px;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .profile__name {
+    font-size: 31px;
+    line-height: 31px;
+  }
 }
 
 @media screen and (max-width: 320px) {

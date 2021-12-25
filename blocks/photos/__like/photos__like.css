@@ -1,8 +1,14 @@
 .photos__like {
+  height: 19px;
+  width: 19px;
   margin: 0;
   padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  border: none;
   cursor: pointer;
-  position: relative;
 }
 
 .photos__like:hover {

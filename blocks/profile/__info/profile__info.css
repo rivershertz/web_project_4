@@ -4,15 +4,15 @@
   margin: 0 0 0 26.25px;
   color: #fff;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  flex-direction: row;
+  align-items: center;
   flex-wrap: wrap;
 }
 
-@media screen and (max-width: 581px) {
+@media screen and (max-width: 880px) {
   .profile__info {
-    max-width: 450px;
-    align-items: center;
+    justify-content: center;
+    max-width: max-content;
     margin: 26px 0 0;
   }
 }

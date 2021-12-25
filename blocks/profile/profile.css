@@ -10,14 +10,8 @@
 
 @media screen and (max-width: 880px) {
   .profile {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-}
-
-@media screen and (max-width: 880px) {
-  .profile {
     max-width: 450px;
+    margin: 0 auto;
     flex-direction: column;
   }
 }
