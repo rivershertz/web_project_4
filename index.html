@@ -25,20 +25,10 @@
         />
         <div class="profile__info">
             <h1 class="profile__name">Jacques Cousteau</h1>
-            <button class="profile__edit">
-              <img
-                src="./images/Edit_pen.png"
-                alt="edit profile button"
-              />
-          </button>
+            <button class="profile__edit" type="button"></button>
           <p class="profile__subtitle">Explorer</p>
         </div>
-        <button class="profile__add">
-          <img
-            src="./images/Add_icon.png"
-            alt="add picture button"
-          />
-        </button>
+        <button class="profile__add" type="button"></button>
       </section>
 
       <section class="photos">
@@ -47,70 +37,56 @@
               <img class="photos__img" src="./images/yosemite.jpg" alt="picture in feed">
               <div class="photos__interactive">
                 <h2 class="photos__title">Yosemite Valley</h2>
-                <button class="photos__like">
-                  <img src="./images/Like_icon.svg" alt="like button">
-                </button>
+                <button class="photos__like" type="button"></button>
               </div>
           </li>
           <li class="photos__card">
               <img class="photos__img" src="./images/Lake_louise.png" alt="picture in feed">
               <div class="photos__interactive">
                 <h2 class="photos__title">Lake Louise</h2>
-                <button class="photos__like">
-                  <img src="./images/Like_icon.svg" alt="like button">
-                </button>
+                <button class="photos__like" type="button"></button>
               </div>
           </li>
           <li class="photos__card">
               <img class="photos__img" src="./images/Bald_mountaines.png" alt="picture in feed">
               <div class="photos__interactive">
                 <h2 class="photos__title">Bald Mountaines</h2>
-                <button class="photos__like">
-                  <img src="./images/Like_icon.svg" alt="like button">
-                </button>
+                <button class="photos__like" type="button"></button>
               </div>
           </li>
           <li class="photos__card">
               <img class="photos__img" src="./images/Latemar.png" alt="picture in feed">
               <div class="photos__interactive">
                 <h2 class="photos__title">Latemar</h2>
-                <button class="photos__like">
-                  <img src="./images/Like_icon.svg" alt="like button">
-                </button>
+                <button class="photos__like" type="button"></button>
               </div>
           </li>
           <li class="photos__card">
               <img class="photos__img" src="./images/Vanoise_national_park.png" alt="picture in feed">
               <div class="photos__interactive">
                 <h2 class="photos__title">Vanoise National Park</h2>
-                <button class="photos__like">
-                  <img src="./images/Like_icon.svg" alt="like button">
-                </button>
+                <button class="photos__like" type="button"></button>
               </div>
           </li>
           <li class="photos__card">
               <img class="photos__img" src="./images/Lago_di_braies.png" alt="picture in feed">
               <div class="photos__interactive">
                 <h2 class="photos__title">Lago di Braies</h2>
-                <button class="photos__like">
-                  <img src="./images/Like_icon.svg" alt="like button">
-                </button> 
+                <button class="photos__like" type="button"></button> 
               </div>
-        </li>
+          </li>
         </ul>
       </section>
 
       <div class="popup">          
           <form class="popup__container">
-            <button class="popup__close">
-              <img src="./images/Close_Icon.png" alt="close profile edit button">
-            </button>
+            <button class="popup__close" type="button"></button>
             <h2 class="popup__title">Edit profile</h2>
             <div class="popup__inputs">
-              <label class="popup__label" for="Name"></label>
-              <input id="Name" class="popup__input" type="text" placeholder="Name">
-              <label class="popup__label" for="About"></label>
-              <input id="About" class="popup__input" type="text" placeholder="About me">
+              <label class="popup__label" for="Name">Type here your name</label>
+              <input id="Name" class="popup__input popup__name" type="text" placeholder="Name">
+              <label class="popup__label" for="About">Type here about yourself</label>
+              <input id="About" class="popup__input popup__about" type="text" placeholder="About me">
             </div>
             <button type="submit" class="popup__save">Save</button>
           </form>
