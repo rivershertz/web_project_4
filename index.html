@@ -33,7 +33,7 @@
 
       <section class="photos">
         <ul class="photos__list">
-          <li class="photos__card">
+          <!--<li class="photos__card">
               <img class="photos__img" src="./images/yosemite.jpg" alt="picture in feed">
               <div class="photos__interactive">
                 <h2 class="photos__title">Yosemite Valley</h2>
@@ -74,7 +74,7 @@
                 <h2 class="photos__title">Lago di Braies</h2>
                 <button class="photos__like" type="button"></button> 
               </div>
-          </li>
+          </li>-->
         </ul>
       </section>
 
@@ -91,9 +91,34 @@
             <button type="submit" class="popup__save">Save</button>
           </form>
       </div>
+
+      <div class="popup">          
+        <form class="popup__container">
+          <button class="popup__close" type="button"></button>
+          <h2 class="popup__title">Edit profile</h2>
+          <div class="popup__inputs">
+            <label class="popup__label" for="Name">Type here your name</label>
+            <input id="Name" class="popup__input popup__name" type="text" placeholder="Name">
+            <label class="popup__label" for="About">Type here about yourself</label>
+            <input id="About" class="popup__input popup__about" type="text" placeholder="About me">
+          </div>
+          <button type="submit" class="popup__save">Save</button>
+        </form>
+    </div>
     </main>
 
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
+
     <script src="./scripts/script.js"></script>
+
+    <template id="card-template">
+      <li class="photos__card">
+        <img class="photos__img" src="#" alt="picture in feed">
+        <div class="photos__interactive">
+          <h2 class="photos__title"></h2>
+          <button class="photos__like" type="button"></button>
+        </div>
+      </li>
+    </template>
   </body>
 </html>
