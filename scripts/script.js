@@ -75,8 +75,8 @@ function handleImageAddFormCreate(evt) {
   evt.preventDefault();
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".photos__card").cloneNode(true);
-  let imageUrl = document.querySelector(".photos__img").src;
-  const imageTitle = document.querySelector(".photos__title");
+  let imageUrl = cardElement.querySelector(".photos__img").src;
+  const imageTitle = cardElement.querySelector(".photos__title");
   imageTitle.textContent = inputTitle.value;
   imageUrl = `" + ${inputUrl.value} + "`;
   document.querySelector(".photos__list").prepend(cardElement);
