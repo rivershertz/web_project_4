@@ -33,54 +33,12 @@
 
       <section class="photos">
         <ul class="photos__list">
-          <!--<li class="photos__card">
-              <img class="photos__img" src="./images/yosemite.jpg" alt="picture in feed">
-              <div class="photos__interactive">
-                <h2 class="photos__title">Yosemite Valley</h2>
-                <button class="photos__like" type="button"></button>
-              </div>
-          </li>
-          <li class="photos__card">
-              <img class="photos__img" src="./images/Lake_louise.png" alt="picture in feed">
-              <div class="photos__interactive">
-                <h2 class="photos__title">Lake Louise</h2>
-                <button class="photos__like" type="button"></button>
-              </div>
-          </li>
-          <li class="photos__card">
-              <img class="photos__img" src="./images/Bald_mountaines.png" alt="picture in feed">
-              <div class="photos__interactive">
-                <h2 class="photos__title">Bald Mountaines</h2>
-                <button class="photos__like" type="button"></button>
-              </div>
-          </li>
-          <li class="photos__card">
-              <img class="photos__img" src="./images/Latemar.png" alt="picture in feed">
-              <div class="photos__interactive">
-                <h2 class="photos__title">Latemar</h2>
-                <button class="photos__like" type="button"></button>
-              </div>
-          </li>
-          <li class="photos__card">
-              <img class="photos__img" src="./images/Vanoise_national_park.png" alt="picture in feed">
-              <div class="photos__interactive">
-                <h2 class="photos__title">Vanoise National Park</h2>
-                <button class="photos__like" type="button"></button>
-              </div>
-          </li>
-          <li class="photos__card">
-              <img class="photos__img" src="./images/Lago_di_braies.png" alt="picture in feed">
-              <div class="photos__interactive">
-                <h2 class="photos__title">Lago di Braies</h2>
-                <button class="photos__like" type="button"></button> 
-              </div>
-          </li>-->
         </ul>
       </section>
 
-      <div class="popup">          
+      <div class="popup popup-profile">          
           <form class="popup__container">
-            <button class="popup__close" type="button"></button>
+            <button class="popup__close profile__close" type="button"></button>
             <h2 class="popup__title">Edit profile</h2>
             <div class="popup__inputs">
               <label class="popup__label" for="Name">Type here your name</label>
@@ -88,37 +46,39 @@
               <label class="popup__label" for="About">Type here about yourself</label>
               <input id="About" class="popup__input popup__about" type="text" placeholder="About me">
             </div>
-            <button type="submit" class="popup__save">Save</button>
+            <button type="submit" class="popup__save profile__save">Save</button>
           </form>
       </div>
 
-      <div class="popup">          
+      <div class="popup popup-image">          
         <form class="popup__container">
-          <button class="popup__close" type="button"></button>
-          <h2 class="popup__title">Edit profile</h2>
+          <button class="popup__close image__close" type="button"></button>
+          <h2 class="popup__title">New place</h2>
           <div class="popup__inputs">
-            <label class="popup__label" for="Name">Type here your name</label>
-            <input id="Name" class="popup__input popup__name" type="text" placeholder="Name">
-            <label class="popup__label" for="About">Type here about yourself</label>
-            <input id="About" class="popup__input popup__about" type="text" placeholder="About me">
+            <label class="popup__label" for="title">Type here the photo title</label>
+            <input id="title" class="popup__input popup__title" type="text" placeholder="Title">
+            <label class="popup__label" for="image URL">Type here the photo URL</label>
+            <input id="image-url" class="popup__input popup__url" type="text" placeholder="Image URL">
           </div>
-          <button type="submit" class="popup__save">Save</button>
+          <button type="submit" class="popup__save image__create">Create</button>
         </form>
     </div>
     </main>
 
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
 
-    <script src="./scripts/script.js"></script>
-
     <template id="card-template">
       <li class="photos__card">
         <img class="photos__img" src="#" alt="picture in feed">
         <div class="photos__interactive">
-          <h2 class="photos__title"></h2>
+          <h2 class="photos__title">A</h2>
           <button class="photos__like" type="button"></button>
         </div>
       </li>
     </template>
+
+    <script src="./scripts/script.js"></script>
+
+    
   </body>
 </html>
