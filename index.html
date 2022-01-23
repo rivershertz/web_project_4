@@ -37,7 +37,7 @@
 
       <div class="popup popup-profile">
         <form class="popup__container">
-          <button class="popup__close profile__close" type="button"></button>
+          <button class="popup__close popup__close_profile" type="button"></button>
           <h2 class="popup__title">Edit profile</h2>
           <div class="popup__inputs">
             <label class="popup__label" for="Name">Type here your name</label>
@@ -57,13 +57,13 @@
               placeholder="About me"
             />
           </div>
-          <button type="submit" class="popup__save profile__save">Save</button>
+          <button type="submit" class="popup__save popup__save_profile">Save</button>
         </form>
       </div>
 
       <div class="popup popup-new-image">
         <form class="popup__container">
-          <button class="popup__close image__close" type="button"></button>
+          <button class="popup__close popup__close_image" type="button"></button>
           <h2 class="popup__title">New place</h2>
           <div class="popup__inputs">
             <label class="popup__label" for="title"
@@ -71,7 +71,7 @@
             >
             <input
               id="title"
-              class="popup__input image__title"
+              class="popup__input popup__input_title"
               type="text"
               placeholder="Title"
             />
@@ -80,12 +80,12 @@
             >
             <input
               id="image-url"
-              class="popup__input image__url"
+              class="popup__input popup__input_url"
               type="text"
               placeholder="Image URL"
             />
           </div>
-          <button type="submit" class="popup__save image__create">
+          <button type="submit" class="popup__save popup__save_image">
             Create
           </button>
         </form>
