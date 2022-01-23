@@ -7,9 +7,13 @@
   width: 30px;
   height: 30px;
   background-image: url(../../../images/Close_Icon.png);
-  background-color:black;
+  background-color: transparent;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.popup__close:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 545px) {

@@ -56,9 +56,9 @@
           <h2 class="popup__title">New place</h2>
           <div class="popup__inputs">
             <label class="popup__label" for="title">Type here the photo title</label>
-            <input id="title" class="popup__input popup__title" type="text" placeholder="Title">
+            <input id="title" class="popup__input image__title" type="text" placeholder="Title">
             <label class="popup__label" for="image URL">Type here the photo URL</label>
-            <input id="image-url" class="popup__input popup__url" type="text" placeholder="Image URL">
+            <input id="image-url" class="popup__input image__url" type="text" placeholder="Image URL">
           </div>
           <button type="submit" class="popup__save image__create">Create</button>
         </form>
@@ -70,11 +70,22 @@
     <template id="card-template">
       <li class="photos__card">
         <img class="photos__img" src="#" alt="picture in feed">
+        <button class="photos__remove" type="button"></button>
         <div class="photos__interactive">
-          <h2 class="photos__title">A</h2>
+          <h2 class="photos__title"></h2>
           <button class="photos__like" type="button"></button>
         </div>
       </li>
+    </template>
+
+    <template id="image-template">
+      <div class="image-popup">
+        <div class="image-popup__element">
+          <button class="image-popup__close" type="button"></button>
+          <img class="image-popup__img" src="#" alt="inlarged picture">
+          <p class="image-popup__title"></p>
+        </div>
+      </div>
     </template>
 
     <script src="./scripts/script.js"></script>

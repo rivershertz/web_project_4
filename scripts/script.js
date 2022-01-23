@@ -10,8 +10,8 @@ const profileCloseBtn = document.querySelector(".profile__close");
 const imageCloseBtn = document.querySelector(".image__close");
 const inputName = document.querySelector(".popup__name");
 const inputAbout = document.querySelector(".popup__about");
-const inputTitle = document.querySelector(".popup__title");
-const inputUrl = document.querySelector(".popup__url");
+const inputUrl = document.querySelector(".image__url");
+const inputTitle = document.querySelector(".image__title");
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -45,10 +45,20 @@ function initialCardsUpload () {
     const cardElement = cardTemplate.querySelector(".photos__card").cloneNode(true);
     cardElement.querySelector(".photos__title").textContent = item.name;
     cardElement.querySelector(".photos__img").src = item.link;
+    const likeBtn = cardElement.querySelector(".photos__like");
+    likeBtn.addEventListener("click", function(evt) {
+    evt.target.classList.toggle("photos__like_active");
+  });
+    const removeBtn = cardElement.querySelector(".photos__remove");
+    removeBtn.addEventListener("click", function () {
+      const parentCard = removeBtn.closest(".photos__card");
+      parentCard.remove();
+    });
     document.querySelector(".photos__list").append(cardElement);
   });
 }
 initialCardsUpload();
+
 
 function handleProfileFormToggle() {
   profileFormContainer.classList.toggle("popup_opened");
@@ -75,18 +85,30 @@ function handleImageAddFormCreate(evt) {
   evt.preventDefault();
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".photos__card").cloneNode(true);
-  let imageUrl = cardElement.querySelector(".photos__img").src;
   const imageTitle = cardElement.querySelector(".photos__title");
+  let imageUrl = cardElement.querySelector(".photos__img");
   imageTitle.textContent = inputTitle.value;
-  imageUrl = `" + ${inputUrl.value} + "`;
+  imageUrl.src = inputUrl.value;
+  const likeBtn = cardElement.querySelector(".photos__like");
+  likeBtn.addEventListener("click", function(evt) {
+    evt.target.classList.toggle("photos__like_active");
+  });
+  const removeBtn = cardElement.querySelector(".photos__remove");
+  removeBtn.addEventListener("click", function () {
+    const parentCard = removeBtn.closest(".photos__card");
+    parentCard.remove();
+  });
   document.querySelector(".photos__list").prepend(cardElement);
-  handleImageAddFormToggle()
+  handleImageAddFormToggle();
 }
 
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
-imageFormContainer .addEventListener("submit", handleImageAddFormCreate);
+imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
 editBtn.addEventListener("click", handleProfileFormOpen);
 profileCloseBtn.addEventListener("click", handleProfileFormToggle);
 addBtn.addEventListener("click", handleImageAddFormToggle);
 imageCloseBtn.addEventListener("click", handleImageAddFormToggle);
+
+
+
 
