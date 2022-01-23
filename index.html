@@ -24,53 +24,88 @@
           alt="your profile picture"
         />
         <div class="profile__info">
-            <h1 class="profile__name">Jacques Cousteau</h1>
-            <button class="profile__edit" type="button"></button>
+          <h1 class="profile__name">Jacques Cousteau</h1>
+          <button class="profile__edit" type="button"></button>
           <p class="profile__subtitle">Explorer</p>
         </div>
         <button class="profile__add" type="button"></button>
       </section>
 
       <section class="photos">
-        <ul class="photos__list">
-        </ul>
+        <ul class="photos__list"></ul>
       </section>
 
-      <div class="popup popup-profile">          
-          <form class="popup__container">
-            <button class="popup__close profile__close" type="button"></button>
-            <h2 class="popup__title">Edit profile</h2>
-            <div class="popup__inputs">
-              <label class="popup__label" for="Name">Type here your name</label>
-              <input id="Name" class="popup__input popup__name" type="text" placeholder="Name">
-              <label class="popup__label" for="About">Type here about yourself</label>
-              <input id="About" class="popup__input popup__about" type="text" placeholder="About me">
-            </div>
-            <button type="submit" class="popup__save profile__save">Save</button>
-          </form>
+      <div class="popup popup-profile">
+        <form class="popup__container">
+          <button class="popup__close profile__close" type="button"></button>
+          <h2 class="popup__title">Edit profile</h2>
+          <div class="popup__inputs">
+            <label class="popup__label" for="Name">Type here your name</label>
+            <input
+              id="Name"
+              class="popup__input popup__name"
+              type="text"
+              placeholder="Name"
+            />
+            <label class="popup__label" for="About"
+              >Type here about yourself</label
+            >
+            <input
+              id="About"
+              class="popup__input popup__about"
+              type="text"
+              placeholder="About me"
+            />
+          </div>
+          <button type="submit" class="popup__save profile__save">Save</button>
+        </form>
       </div>
 
-      <div class="popup popup-image">          
+      <div class="popup popup-new-image">
         <form class="popup__container">
           <button class="popup__close image__close" type="button"></button>
           <h2 class="popup__title">New place</h2>
           <div class="popup__inputs">
-            <label class="popup__label" for="title">Type here the photo title</label>
-            <input id="title" class="popup__input image__title" type="text" placeholder="Title">
-            <label class="popup__label" for="image URL">Type here the photo URL</label>
-            <input id="image-url" class="popup__input image__url" type="text" placeholder="Image URL">
+            <label class="popup__label" for="title"
+              >Type here the photo title</label
+            >
+            <input
+              id="title"
+              class="popup__input image__title"
+              type="text"
+              placeholder="Title"
+            />
+            <label class="popup__label" for="image-url"
+              >Type here the photo URL</label
+            >
+            <input
+              id="image-url"
+              class="popup__input image__url"
+              type="text"
+              placeholder="Image URL"
+            />
           </div>
-          <button type="submit" class="popup__save image__create">Create</button>
+          <button type="submit" class="popup__save image__create">
+            Create
+          </button>
         </form>
-    </div>
+      </div>
+
+      <div class="image-popup">
+        <div class="image-popup__element">
+          <button class="image-popup__close" type="button"></button>
+          <img class="image-popup__img" src="#" alt="inlarged picture" />
+          <p class="image-popup__title"></p>
+        </div>
+      </div>
     </main>
 
     <footer class="footer">&copy; 2021 Around The U.S.</footer>
 
     <template id="card-template">
       <li class="photos__card">
-        <img class="photos__img" src="#" alt="picture in feed">
         <button class="photos__remove" type="button"></button>
+        <img class="photos__img" src="#" alt="picture in feed" />
         <div class="photos__interactive">
           <h2 class="photos__title"></h2>
           <button class="photos__like" type="button"></button>
@@ -78,18 +113,6 @@
       </li>
     </template>
 
-    <template id="image-template">
-      <div class="image-popup">
-        <div class="image-popup__element">
-          <button class="image-popup__close" type="button"></button>
-          <img class="image-popup__img" src="#" alt="inlarged picture">
-          <p class="image-popup__title"></p>
-        </div>
-      </div>
-    </template>
-
     <script src="./scripts/script.js"></script>
-
-    
   </body>
 </html>

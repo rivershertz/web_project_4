@@ -1,5 +1,6 @@
-const imageFormContainer = document.querySelector(".popup-image");
+const imageFormContainer = document.querySelector(".popup-new-image");
 const profileFormContainer = document.querySelector(".popup-profile");
+const imagePopupContainer = document.querySelector(".image-popup")
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__subtitle");
 const editBtn = document.querySelector(".profile__edit");
@@ -12,6 +13,9 @@ const inputName = document.querySelector(".popup__name");
 const inputAbout = document.querySelector(".popup__about");
 const inputUrl = document.querySelector(".image__url");
 const inputTitle = document.querySelector(".image__title");
+const popupImageImg = document.querySelector(".image-popup__img");
+const popupImageTitle = document.querySelector(".image-popup__title");
+const popupImageClose = document.querySelector(".image-popup__close");
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -46,6 +50,7 @@ function initialCardsUpload () {
     cardElement.querySelector(".photos__title").textContent = item.name;
     cardElement.querySelector(".photos__img").src = item.link;
     const likeBtn = cardElement.querySelector(".photos__like");
+    let imageUrl = cardElement.querySelector(".photos__img");
     likeBtn.addEventListener("click", function(evt) {
     evt.target.classList.toggle("photos__like_active");
   });
@@ -54,18 +59,31 @@ function initialCardsUpload () {
       const parentCard = removeBtn.closest(".photos__card");
       parentCard.remove();
     });
+    imageUrl.addEventListener("click", function() {
+      const imageTitle = cardElement.querySelector(".photos__title");
+      popupImageImg.src = imageUrl.src;
+      popupImageTitle.textContent = imageTitle.textContent;
+      imagePopupContainer.classList.toggle("popup_opened");
+    });
     document.querySelector(".photos__list").append(cardElement);
   });
 }
 initialCardsUpload();
 
-
-function handleProfileFormToggle() {
+function handleProfileFormOpen() {
   profileFormContainer.classList.toggle("popup_opened");
 }
 
 function handleImageAddFormToggle() {
   imageFormContainer.classList.toggle("popup_opened");
+}
+
+function handleProfileFormToggle() {
+  profileFormContainer.classList.toggle("popup_opened");
+}
+
+function handleImagePopupToggle () {
+  imagePopupContainer.classList.toggle("popup_opened");
 }
 
 function handleProfileFormOpen() {
@@ -98,6 +116,11 @@ function handleImageAddFormCreate(evt) {
     const parentCard = removeBtn.closest(".photos__card");
     parentCard.remove();
   });
+  imageUrl.addEventListener("click", function() {
+    popupImageImg.src = imageUrl.src;
+    popupImageTitle.textContent = imageTitle.textContent;
+    handleImagePopupToggle();
+  });
   document.querySelector(".photos__list").prepend(cardElement);
   handleImageAddFormToggle();
 }
@@ -108,6 +131,9 @@ editBtn.addEventListener("click", handleProfileFormOpen);
 profileCloseBtn.addEventListener("click", handleProfileFormToggle);
 addBtn.addEventListener("click", handleImageAddFormToggle);
 imageCloseBtn.addEventListener("click", handleImageAddFormToggle);
+popupImageClose.addEventListener("click", handleImagePopupToggle);
+
+
 
 
 
