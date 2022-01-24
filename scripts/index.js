@@ -84,7 +84,7 @@ function handleImageAddFormCreate(evt) {
     const parentCard = removeBtn.closest(".photos__card");
     parentCard.remove();
   });
-  imageUrl.addEventListener("click", function(evt) {
+  imageUrl.addEventListener("click", function() {
     popupImageImg.src = imageUrl.src;
     popupImageTitle.textContent = imageTitle.textContent;
     popupImageImg.alt = `picture of ${inputTitle}`;
