@@ -37,7 +37,6 @@ function initialCardsUpload () {
     });
     imageUrl.addEventListener("click", function(evt) {
       const imageTitle = cardElement.querySelector(".photos__title");
-      console.log(imageUrl.src);
       popupImageImg.src = imageUrl.src;
       popupImageTitle.textContent = imageTitle.textContent;
       openPopup(imagePopupContainer);
