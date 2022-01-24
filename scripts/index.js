@@ -35,7 +35,7 @@ function initialCardsUpload () {
       const parentCard = removeBtn.closest(".photos__card");
       parentCard.remove();
     });
-    imageUrl.addEventListener("click", function(evt) {
+    imageUrl.addEventListener("click", function() {
       const imageTitle = cardElement.querySelector(".photos__title");
       popupImageImg.src = imageUrl.src;
       popupImageTitle.textContent = imageTitle.textContent;
