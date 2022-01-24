@@ -13,7 +13,7 @@ const inputName = document.querySelector(".popup__name");
 const inputAbout = document.querySelector(".popup__about");
 const inputUrl = document.querySelector(".popup__input_url");
 const inputTitle = document.querySelector(".popup__input_title");
-const popupImageImg = imageFormContainer.querySelector(".image-popup__img");
+const popupImageImg = imagePopupContainer.querySelector(".image-popup__img");
 const popupImageTitle = document.querySelector(".image-popup__title");
 const popupImageClose = document.querySelector(".image-popup__close");
 const cardTemplate = document.querySelector("#card-template").content;
@@ -22,11 +22,11 @@ const photosList = document.querySelector(".photos__list");
 function initialCardsUpload () {
   initialCards.forEach(function (item) {
     const cardElement = cardTemplate.querySelector(".photos__card").cloneNode(true);
+    cardElement.querySelector(".photos__title").textContent = item.name;
+    cardElement.querySelector(".photos__img").src = item.link;
+    cardElement.querySelector(".photos__img").alt = `picture of ${item.name}`;
     const likeBtn = cardElement.querySelector(".photos__like");
     const imageUrl = cardElement.querySelector(".photos__img");
-    cardElement.querySelector(".photos__title").textContent = item.name;
-    imageUrl.src = item.link;
-    imageUrl.alt = `picture of ${item.name}`;
     likeBtn.addEventListener("click", function(evt) {
     evt.target.classList.toggle("photos__like_active");
   });
@@ -35,8 +35,9 @@ function initialCardsUpload () {
       const parentCard = removeBtn.closest(".photos__card");
       parentCard.remove();
     });
-    imageUrl.addEventListener("click", function() {
+    imageUrl.addEventListener("click", function(evt) {
       const imageTitle = cardElement.querySelector(".photos__title");
+      console.log(imageUrl.src);
       popupImageImg.src = imageUrl.src;
       popupImageTitle.textContent = imageTitle.textContent;
       openPopup(imagePopupContainer);
@@ -84,8 +85,8 @@ function handleImageAddFormCreate(evt) {
     const parentCard = removeBtn.closest(".photos__card");
     parentCard.remove();
   });
-  imageUrl.addEventListener("click", function() {
-    popupImageImg.src = imageUrl.src;
+  imageUrl.addEventListener("click", function(evt) {
+    popupImageImg.src = evt.target.src;
     popupImageTitle.textContent = imageTitle.textContent;
     popupImageImg.alt = `picture of ${inputTitle}`;
     debugger
