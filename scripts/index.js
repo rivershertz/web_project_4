@@ -88,7 +88,6 @@ function handleImageAddFormCreate(evt) {
     popupImageImg.src = imageUrl.src;
     popupImageTitle.textContent = imageTitle.textContent;
     popupImageImg.alt = `picture of ${inputTitle}`;
-    debugger
     openPopup(imagePopupContainer);
   });
   photosList.prepend(cardElement);
