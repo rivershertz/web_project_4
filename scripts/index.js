@@ -25,7 +25,7 @@ function createCard (itemTitle, itemLink) {
   cardElement.querySelector(".photos__img").src = itemLink;
   cardElement.querySelector(".photos__img").alt = `picture of ${itemTitle}`;
   const likeBtn = cardElement.querySelector(".photos__like");
-  const imageUrl = cardElement.querySelector(".photos__img");
+  const cardImg = cardElement.querySelector(".photos__img");
   likeBtn.addEventListener("click", function(evt) {
   evt.target.classList.toggle("photos__like_active");
   });
@@ -34,10 +34,9 @@ function createCard (itemTitle, itemLink) {
     const parentCard = removeBtn.closest(".photos__card");
     parentCard.remove();
   });
-  imageUrl.addEventListener("click", function() {
-    const imageTitle = cardElement.querySelector(".photos__title");
-    popupImageImg.src = imageUrl.src;
-    popupImageTitle.textContent = imageTitle.textContent;
+  cardImg.addEventListener("click", function() {
+    popupImageImg.src = itemLink;
+    popupImageTitle.textContent = itemTitle;
     openPopup(imagePopupContainer);
   });
   return cardElement
@@ -55,7 +54,7 @@ function openPopup(popupElement) {
 }
 
 function closePopup(popupElement) {
-  popupElement.classList.toggle("popup_opened");
+  popupElement.classList.remove("popup_opened");
 }
 
 function handleProfileFormOpen() {
