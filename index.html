@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./pages/index.css" />
     <title>Around The U.S.</title>
-    <base href="/">
+    <base href="/" />
   </head>
   <body class="page">
     <header class="header">
@@ -38,7 +38,10 @@
 
       <div class="popup popup_profile">
         <form class="popup__form" novalidate>
-          <button class="popup__close popup__close_profile" type="button"></button>
+          <button
+            class="popup__close popup__close_profile"
+            type="button"
+          ></button>
           <h2 class="popup__title">Edit profile</h2>
           <div class="popup__inputs">
             <label class="popup__label" for="name">Type here your name</label>
@@ -66,13 +69,18 @@
             />
             <span class="about-input-error"></span>
           </div>
-          <button type="submit" class="popup__save popup__save_profile">Save</button>
+          <button type="submit" class="popup__save popup__save_profile">
+            Save
+          </button>
         </form>
       </div>
 
       <div class="popup popup_new-image">
         <form class="popup__form" novalidate>
-          <button class="popup__close popup__close_image" type="button"></button>
+          <button
+            class="popup__close popup__close_image"
+            type="button"
+          ></button>
           <h2 class="popup__title">New place</h2>
           <div class="popup__inputs">
             <label class="popup__label" for="title"
@@ -108,8 +116,15 @@
 
       <div class="popup popup_image-popup">
         <div class="popup__element popup__element_image-popup">
-          <button class="popup__close popup__close_image-popup" type="button"></button>
-          <img class="popup__img popup__img_image-popup" src="#" alt="inlarged picture" />
+          <button
+            class="popup__close popup__close_image-popup"
+            type="button"
+          ></button>
+          <img
+            class="popup__img popup__img_image-popup"
+            src="#"
+            alt="inlarged picture"
+          />
           <p class="popup__title popup__title_image-popup"></p>
         </div>
       </div>

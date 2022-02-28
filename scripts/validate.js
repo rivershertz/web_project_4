@@ -3,7 +3,7 @@ const showInputError = (form, input, errorMessage) => {
   input.classList.add("popup__input_type_error");
   error.textContent = errorMessage;
   error.classList.add("popup__error_visible");
-}
+};
 
 const hideInputError = (form, input) => {
   const error = form.querySelector(`.${input.id}-input-error`);
@@ -11,14 +11,14 @@ const hideInputError = (form, input) => {
   input.classList.remove("popup__input_type_error");
   error.textContent = "";
   error.classList.remove("popup__error_visible");
-}
+};
 
 const isValid = (form, input) => {
   if (!input.validity.valid) {
     showInputError(form, input, input.validationMessage);
   } else {
     hideInputError(form, input);
-  };
+  }
 };
 
 const hasInvalidInput = (inputs) => {
@@ -50,10 +50,11 @@ const setEventListeners = (form) => {
 };
 
 const enableValidation = (settings) => {
-
   const forms = Array.from(document.querySelectorAll(".popup__form"));
   forms.forEach((form) => {
-    form.addEventListener("submit", (e) => {e.preventDefault()});
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+    });
     setEventListeners(form);
   });
 };
@@ -64,6 +65,5 @@ enableValidation({
   submitButtonSelector: ".popup__save",
   inactiveButtonClass: "popup__save_disabled",
   inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible"
+  errorClass: "popup__error_visible",
 });
-
