@@ -36,33 +36,41 @@
       </section>
 
       <div class="popup popup_profile">
-        <form class="popup__container">
+        <form class="popup__form" novalidate>
           <button class="popup__close popup__close_profile" type="button"></button>
           <h2 class="popup__title">Edit profile</h2>
           <div class="popup__inputs">
-            <label class="popup__label" for="Name">Type here your name</label>
+            <label class="popup__label" for="name">Type here your name</label>
             <input
-              id="Name"
+              id="name"
               class="popup__input popup__name"
               type="text"
               placeholder="Name"
+              required
+              minlength="2"
+              maxlength="40"
             />
-            <label class="popup__label" for="About"
+            <span class="name-input-error"></span>
+            <label class="popup__label" for="about"
               >Type here about yourself</label
             >
             <input
-              id="About"
+              id="about"
               class="popup__input popup__about"
               type="text"
               placeholder="About me"
+              required
+              minlength="2"
+              maxlength="200"
             />
+            <span class="about-input-error"></span>
           </div>
           <button type="submit" class="popup__save popup__save_profile">Save</button>
         </form>
       </div>
 
       <div class="popup popup_new-image">
-        <form class="popup__container">
+        <form class="popup__form" novalidate>
           <button class="popup__close popup__close_image" type="button"></button>
           <h2 class="popup__title">New place</h2>
           <div class="popup__inputs">
@@ -74,16 +82,22 @@
               class="popup__input popup__input_title"
               type="text"
               placeholder="Title"
+              required
+              minlength="1"
+              maxlength="30"
             />
+            <span class="title-input-error"></span>
             <label class="popup__label" for="image-url"
               >Type here the photo URL</label
             >
             <input
               id="image-url"
               class="popup__input popup__input_url"
-              type="text"
+              type="url"
               placeholder="Image URL"
+              required
             />
+            <span class="image-url-input-error"></span>
           </div>
           <button type="submit" class="popup__save popup__save_image">
             Create

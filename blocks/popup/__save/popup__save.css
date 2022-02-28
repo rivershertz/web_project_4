@@ -6,7 +6,19 @@
   padding: 13px 125px;
   border: none;
   cursor: pointer;
+  transition: visibility 0s, background .2s;
 }
+
+.popup__save:hover {
+  background-color: rgba(0, 0, 0, .6);
+}
+
+.popup__save.popup__button_disabled {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, .2);
+  color: rgba(0, 0, 0, .2);
+}
+
 @media screen and (max-width: 338px) {
   .popup__save {
     max-width: 232px;
