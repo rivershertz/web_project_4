@@ -51,6 +51,7 @@ initialCardsUpload();
 
 function openPopup(popupElement) {
   popupElement.classList.add("popup_opened");
+  document.addEventListener("keydown", (evt) => {escPopup(evt, popupElement)});
 }
 
 function closePopup(popupElement) {
@@ -76,6 +77,11 @@ function handleImageAddFormCreate(evt) {
   closePopup(imageFormContainer);
 }
 
+const escPopup = (evt, popup) => {
+  if (evt.key === "Escape") {
+    closePopup(popup)
+  }
+}
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
 editBtn.addEventListener("click", () => openPopup(profileFormContainer));

@@ -29,10 +29,10 @@ const hasInvalidInput = (inputs) => {
 
 const toggleSubmitButton = (inputs, button) => {
   if (hasInvalidInput(inputs)) {
-    button.classList.add("popup__button_disabled");
+    button.classList.add("popup__save_disabled");
     button.disabled = true;
   } else {
-    button.classList.remove("popup__button_disabled");
+    button.classList.remove("popup__save_disabled");
     button.disabled = false;
   }
 };
@@ -61,8 +61,8 @@ const enableValidation = (settings) => {
 enableValidation({
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
-  inactiveButtonClass: "popup__button_disabled",
+  submitButtonSelector: ".popup__save",
+  inactiveButtonClass: "popup__save_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible"
 });
