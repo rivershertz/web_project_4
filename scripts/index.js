@@ -18,6 +18,7 @@ const popupImageTitle = document.querySelector(".popup__title_image-popup");
 const popupImageClose = document.querySelector(".popup__close_image-popup");
 const cardTemplate = document.querySelector("#card-template").content;
 const photosList = document.querySelector(".photos__list");
+const popups = [...document.querySelectorAll(".popup")];
 
 function createCard (itemTitle, itemLink) {
   const cardElement = cardTemplate.querySelector(".photos__card").cloneNode(true);
@@ -80,8 +81,26 @@ function handleImageAddFormCreate(evt) {
 const escPopup = (evt, popup) => {
   if (evt.key === "Escape") {
     closePopup(popup)
-  }
+  };
+};
+
+const colsePopupOverlayClick = (evt, popup) => {
+  if (evt.target == popupParent) {
+    closePopup(popup);
+  } 
 }
+
+const closePopupWithClick = (popupList) => {
+  popupList.forEach((popup) => {
+    popup.addEventListener("click", (evt) => {
+      if (evt.target.matches(".popup")) {
+        closePopup(popup)
+      };
+    });
+  });
+};
+closePopupWithClick(popups);
+
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
 editBtn.addEventListener("click", () => openPopup(profileFormContainer));
