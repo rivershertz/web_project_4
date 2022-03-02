@@ -8,12 +8,11 @@ const showInputError = (form, input, errorMessage) => {
 const hideInputError = (form, input) => {
   const error = form.querySelector(`.${input.id}-input-error`);
   input.classList.remove("popup__input_type_error");
-  input.classList.remove("popup__input_type_error");
   error.textContent = "";
   error.classList.remove("popup__error_visible");
 };
 
-const isValid = (form, input) => {
+const toggleInputError = (form, input) => {
   if (!input.validity.valid) {
     showInputError(form, input, input.validationMessage);
   } else {
@@ -43,13 +42,13 @@ const setEventListeners = (form) => {
   toggleSubmitButton(inputs, button);
   inputs.forEach((input) => {
     input.addEventListener("input", () => {
-      isValid(form, input);
+      toggleInputError(form, input);
       toggleSubmitButton(inputs, button);
     });
   });
 };
 
-const enableValidation = (settings) => {
+const enableValidation = (settings) => { 
   const forms = Array.from(document.querySelectorAll(".popup__form"));
   forms.forEach((form) => {
     form.addEventListener("submit", (e) => {
@@ -67,3 +66,12 @@ enableValidation({
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 });
+
+//const {
+//  formSelector,
+//  inputSelector,
+///  submitButtonSelector,
+//  inactiveButtonClass,
+//  inputErrorClass,
+ // errorClass,
+//} = settings || {}; 
