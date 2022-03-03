@@ -3,12 +3,12 @@ const profileFormContainer = document.querySelector(".popup_profile");
 const imagePopupContainer = document.querySelector(".popup_image-popup");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__subtitle");
-const editBtn = document.querySelector(".profile__edit");
-const addBtn = document.querySelector(".profile__add");
-const profileSaveBtn = document.querySelector(".popup__save_profile");
-const imageCreateBtn = document.querySelector(".popup__save_image");
-const profileCloseBtn = document.querySelector(".popup__close_profile");
-const imageCloseBtn = document.querySelector(".popup__close_image");
+const editButton = document.querySelector(".profile__edit");
+const addButton = document.querySelector(".profile__add");
+const profileSaveButton = document.querySelector(".popup__save_profile");
+const imageCreateButton = document.querySelector(".popup__save_image");
+const profileCloseButton = document.querySelector(".popup__close_profile");
+const imageCloseButton = document.querySelector(".popup__close_image");
 const inputName = document.querySelector(".popup__name");
 const inputAbout = document.querySelector(".popup__about");
 const inputUrl = document.querySelector(".popup__input_url");
@@ -23,17 +23,15 @@ const photosList = document.querySelector(".photos__list");
 const popups = [...document.querySelectorAll(".popup")];
 
 function createCard(itemTitle, itemLink) {
-  const cardElement = cardTemplate
-  .querySelector(".photos__card")
-  .cloneNode(true);
+  const cardElement = cardTemplate.querySelector(".photos__card").cloneNode(true);
   cardElement.querySelector(".photos__title").textContent = itemTitle;
   const cardImg = cardElement.querySelector(".photos__img");
   cardImg.src = itemLink;
   cardImg.alt = `picture of ${itemTitle}`;
-  const likeBtn = cardElement.querySelector(".photos__like");
-  const removeBtn = cardElement.querySelector(".photos__remove");
-  likeBtn.addEventListener("click", toggleLikeButton);
-  removeBtn.addEventListener("click", removeCard);
+  const likeButton = cardElement.querySelector(".photos__like");
+  const removeButton = cardElement.querySelector(".photos__remove");
+  likeButton.addEventListener("click", toggleLikeButton);
+  removeButton.addEventListener("click", removeCard);
   cardImg.addEventListener("click", function () {
     popupImageImg.src = itemLink;
     popupImageTitle.textContent = itemTitle;
@@ -58,19 +56,19 @@ function initialCardsUpload() {
 }
 initialCardsUpload();
 
-function checkEscapeClicked(evt) {
+function closeByEscape(evt) {
   if (evt.code == "Escape") {
     closePopup(document.querySelector(".popup_opened"));
   }
 }
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", checkEscapeClicked);
+  document.addEventListener("keydown", closeByEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", checkEscapeClicked);
+  document.removeEventListener("keydown", closeByEscape);
 }
 
 function handleProfileFormOpen() {
@@ -90,6 +88,9 @@ function handleImageAddFormCreate(evt) {
   evt.preventDefault();
   photosList.prepend(createCard(inputTitle.value, inputUrl.value));
   closePopup(imageFormContainer);
+  document.querySelector(".reset").reset();
+  imageCreateButton.disabled = true;
+  imageCreateButton.classList.add("popup__save_disabled");
 }
 
 const closePopupWithClick = (popupList) => {
@@ -105,12 +106,14 @@ closePopupWithClick(popups);
 
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
-editBtn.addEventListener("click", () => openPopup(profileFormContainer));
-profileCloseBtn.addEventListener("click", () =>
+editButton.addEventListener("click", () => openPopup(profileFormContainer));
+profileCloseButton.addEventListener("click", () =>
   closePopup(profileFormContainer)
 );
-addBtn.addEventListener("click", () => openPopup(imageFormContainer));
-imageCloseBtn.addEventListener("click", () => closePopup(imageFormContainer));
+addButton.addEventListener("click", () => openPopup(imageFormContainer));
+imageCloseButton.addEventListener("click", () =>
+  closePopup(imageFormContainer)
+);
 popupImageClose.addEventListener("click", () =>
   closePopup(imagePopupContainer)
 );
