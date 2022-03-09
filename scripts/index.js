@@ -98,7 +98,7 @@ const closePopupWithClick = (popupList) => {
     popup.addEventListener("click", (evt) => {
       if (evt.target.matches(".popup")) {
         closePopup(popup);
-      }
+      };
     });
   });
 };
