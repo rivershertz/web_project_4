@@ -1,3 +1,5 @@
+import { createNewCard } from "./Card.js";
+
 const imageFormContainer = document.querySelector(".popup_new-image");
 const profileFormContainer = document.querySelector(".popup_profile");
 export const imagePopupContainer = document.querySelector(".popup_image-popup");
@@ -5,56 +7,22 @@ const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__subtitle");
 const editButton = document.querySelector(".profile__edit");
 const addButton = document.querySelector(".profile__add");
-const profileSaveButton = document.querySelector(".popup__save_profile");
 const imageCreateButton = document.querySelector(".popup__save_image");
 const profileCloseButton = document.querySelector(".popup__close_profile");
 const imageCloseButton = document.querySelector(".popup__close_image");
+
 const inputName = document.querySelector(".popup__name");
 const inputAbout = document.querySelector(".popup__about");
 const inputUrl = document.querySelector(".popup__input_url");
 const inputTitle = document.querySelector(".popup__input_title");
+
 export const popupImageImg = imagePopupContainer.querySelector(
   ".popup__img_image-popup"
 );
 export const popupImageTitle = document.querySelector(".popup__title_image-popup");
 const popupImageClose = document.querySelector(".popup__close_image-popup");
-const cardTemplate = document.querySelector("#card-template").content;
-const photosList = document.querySelector(".photos__list");
 const popups = [...document.querySelectorAll(".popup")];
 
-function createCard(itemTitle, itemLink) {
-  const cardElement = cardTemplate.querySelector(".photos__card").cloneNode(true);
-  cardElement.querySelector(".photos__title").textContent = itemTitle;
-  const cardImg = cardElement.querySelector(".photos__img");
-  cardImg.src = itemLink;
-  cardImg.alt = `picture of ${itemTitle}`;
-  const likeButton = cardElement.querySelector(".photos__like");
-  const removeButton = cardElement.querySelector(".photos__remove");
-  likeButton.addEventListener("click", toggleLikeButton);
-  removeButton.addEventListener("click", removeCard);
-  cardImg.addEventListener("click", function () {
-    popupImageImg.src = itemLink;
-    popupImageTitle.textContent = itemTitle;
-    popupImageImg.alt = `picture of ${itemTitle}`;
-    openPopup(imagePopupContainer);
-  });
-  return cardElement;
-}
-
-const toggleLikeButton = (evt) => {
-  evt.target.classList.toggle("photos__like_active");
-};
-
-const removeCard = (evt) => {
-  evt.target.closest(".photos__card").remove();
-};
-
-function initialCardsUpload() {
-  initialCards.forEach(function (item) {
-    photosList.append(createCard(item.name, item.link));
-  });
-}
-initialCardsUpload();
 
 function closeByEscape(evt) {
   if (evt.code == "Escape") {
@@ -71,12 +39,6 @@ function closePopup(popup) {
   document.removeEventListener("keydown", closeByEscape);
 }
 
-function handleProfileFormOpen() {
-  openPopup(profileFormContainer);
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
-}
-
 function handleProfileFormSave(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -86,7 +48,11 @@ function handleProfileFormSave(evt) {
 
 function handleImageAddFormCreate(evt) {
   evt.preventDefault();
-  photosList.prepend(createCard(inputTitle.value, inputUrl.value));
+  const cardData = {
+    name: inputTitle.value,
+    link: inputUrl.value,
+  }
+  createNewCard(cardData);
   closePopup(imageFormContainer);
   document.querySelector(".reset").reset();
   imageCreateButton.disabled = true;

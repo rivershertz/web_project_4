@@ -55,8 +55,12 @@ export class Card {
   };
 };
 
-initialCards.forEach((card) => {
+export const createNewCard = (card) => {
     const cardElement = new Card(card, "#card-template");
     const newCard = cardElement.generateCard();
-    document.querySelector(".photos__list").append(newCard);
+    document.querySelector(".photos__list").prepend(newCard);
+};
+
+initialCards.forEach((card) => {
+    createNewCard(card);
 });
