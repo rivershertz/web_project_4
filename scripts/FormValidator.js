@@ -1,4 +1,4 @@
-class FormValidator {
+export default class FormValidator {
   constructor(settings, form) {
     this._currentForm = form;
     this._formSelector = settings.formSelector;
@@ -31,30 +31,27 @@ class FormValidator {
     }
   }
 
-  _hasInvalidInput(inputs) {
-    return inputs.some((input) => {
-      return !input.validity.valid;
-    });
+  _hasInvalidInput() {
+    this._inputs.some((input) => !input.validity.valid);
   }
 
-  _toggleSubmitButton(inputs, button) {
-    if (this._hasInvalidInput(inputs)) {
-      button.classList.add(this._inactiveButtonClass);
-      button.disabled = true;
+  _toggleSubmitButton() {
+    if (this._hasInvalidInput()) {
+      this._button.classList.add(this._inactiveButtonClass);
+      this._button.disabled = true;
     } else {
-      button.classList.remove(this._inactiveButtonClass);
-      button.disabled = false;
+      this._button.classList.remove(this._inactiveButtonClass);
+      this._button.disabled = false;
     }
   }
 
   _setEventListeners(form) {
-    const inputs = Array.from(form.querySelectorAll(this._inputSelector));
-    const button = form.querySelector(this._submitButtonSelector);
-    this._toggleSubmitButton(inputs, button);
-    inputs.forEach((input) => {
+    this._inputs = Array.from(form.querySelectorAll(this._inputSelector));
+    this._button = form.querySelector(this._submitButtonSelector);
+    this._inputs.forEach((input) => {
       input.addEventListener("input", () => {
         this._toggleInputError(form, input);
-        this._toggleSubmitButton(inputs, button);
+        this._toggleSubmitButton();
       });
     });
   }
@@ -62,11 +59,9 @@ class FormValidator {
   enableValidation() {
     this._currentForm.addEventListener("submit", (e) => {
       e.preventDefault();
+      this._button.classList.add(this._inactiveButtonClass);
+      this._button.disabled = true;
     });
     this._setEventListeners(this._currentForm);
   }
-}
-
-export default function initFormValidation(settings, form) {
-  new FormValidator(settings, form).enableValidation();
 }

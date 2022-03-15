@@ -1,5 +1,5 @@
-import createNewCard from "./Card.js";
-import initFormValidation from "./FormValidator.js";
+import FormValidator from "./FormValidator.js";
+import Card from "./Card.js"
 
 import {
   initialCards,
@@ -14,14 +14,25 @@ import {
   inputUrl,
   inputTitle,
   popups,
-  closePopup,
+  photosList,
+  closeByEscape,
 } from "./utils.js";
 
-export function closeByEscape(evt) {
-  if (evt.code == "Escape") {
-    closePopup(document.querySelector(".popup_opened"));
-  }
-}
+export function openPopup(popup) {
+  popup.classList.add("popup_opened");
+  document.addEventListener("keydown", closeByEscape);
+  imageCreateButton.classList.add("popup__save_disabled");
+  imageCreateButton.disabled = true;
+  if (popup = ".popup_profile") {
+    inputName.value = profileName.textContent;
+    inputAbout.value = profileAbout.textContent;
+  };
+};
+
+export function closePopup(popup) {
+  popup.classList.remove("popup_opened");
+  document.removeEventListener("keydown", closeByEscape);
+};
 
 export function handleProfileFormSave(evt) {
   evt.preventDefault();
@@ -36,12 +47,11 @@ export function handleImageAddFormCreate(evt) {
     name: inputTitle.value,
     link: inputUrl.value,
   };
-  createNewCard(cardData);
+  renderCard(cardData);
   closePopup(imageFormContainer);
   document.querySelector(".reset").reset();
-  imageCreateButton.disabled = true;
-  imageCreateButton.classList.add("popup__save_disabled");
 }
+
 
 const closePopupWithClick = (popupList) => {
   popupList.forEach((popup) => {
@@ -53,9 +63,19 @@ const closePopupWithClick = (popupList) => {
   });
 };
 
+function renderCard(card) {
+  const cardElement = new Card(card, "#card-template");
+  const newCard = cardElement.generateCard();
+  photosList.prepend(newCard);
+}
+
+
 initialCards.forEach((card) => {
-  createNewCard(card);
+  renderCard(card);
 });
 closePopupWithClick(popups);
-initFormValidation(validationConfig, profileFormContainer);
-initFormValidation(validationConfig, imageFormContainer);
+
+const profileFormValidator = new FormValidator(validationConfig, profileFormContainer);
+profileFormValidator.enableValidation();
+const addImageFormValidator = new FormValidator(validationConfig, imageFormContainer);
+addImageFormValidator.enableValidation();

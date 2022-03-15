@@ -1,7 +1,8 @@
 import {
-  closeByEscape,
   handleProfileFormSave,
   handleImageAddFormCreate,
+  openPopup,
+  closePopup,
 } from "./index.js";
 
 export {
@@ -25,8 +26,9 @@ export {
   popups,
   popupImageImg,
   popupImageTitle,
-  openPopup,
-  closePopup,
+  photosList,
+  closeByEscape,
+  openedPopup,
 };
 
 const initialCards = [
@@ -83,16 +85,16 @@ const popupImageClose = document.querySelector(".popup__close_image-popup");
 const popups = [...document.querySelectorAll(".popup")];
 const popupImageImg = document.querySelector(".popup__img_image-popup");
 const popupImageTitle = document.querySelector(".popup__title_image-popup");
+const photosList = document.querySelector(".photos__list");
+const openedPopup = document.querySelector(".popup_opened");
 
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEscape);
+
+function closeByEscape(evt) {
+  if (evt.code == "Escape") {
+    closePopup(openedPopup);
+  }
 }
 
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEscape);
-}
 
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
