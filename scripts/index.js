@@ -1,47 +1,54 @@
 import FormValidator from "./FormValidator.js";
-import Card from "./Card.js"
+import Card from "./Card.js";
+import { openPopup, closePopup, addRemoteClickListeners } from "./utils.js";
+import { initialCards, validationConfig } from "./constants.js";
 
-import {
-  initialCards,
-  validationConfig,
+export {
+  openedPopup,
+  imagePopupContainer,
+  popupImageImg,
+  popupImageTitle,
   imageFormContainer,
+  addImageFormValidator,
+  profileFormValidator,
   profileFormContainer,
-  profileName,
-  profileAbout,
-  imageCreateButton,
   inputName,
   inputAbout,
-  inputUrl,
-  inputTitle,
-  popups,
-  photosList,
-  closeByEscape,
-} from "./utils.js";
-
-export function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEscape);
-  imageCreateButton.classList.add("popup__save_disabled");
-  imageCreateButton.disabled = true;
-  if (popup = ".popup_profile") {
-    inputName.value = profileName.textContent;
-    inputAbout.value = profileAbout.textContent;
-  };
+  profileName,
+  profileAbout,
+  renderCard,
 };
 
-export function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeByEscape);
-};
+const imagePopupContainer = document.querySelector(".popup_image-popup");
+const imageFormContainer = document.querySelector(".popup_new-image");
+const profileFormContainer = document.querySelector(".popup_profile");
+const profileName = document.querySelector(".profile__name");
+const profileAbout = document.querySelector(".profile__subtitle");
+const editButton = document.querySelector(".profile__edit");
+const addButton = document.querySelector(".profile__add");
+const imageCreateButton = document.querySelector(".popup__save_image");
+const profileCloseButton = document.querySelector(".popup__close_profile");
+const imageCloseButton = document.querySelector(".popup__close_image");
+const inputName = document.querySelector(".popup__name");
+const inputAbout = document.querySelector(".popup__about");
+const inputUrl = document.querySelector(".popup__input_url");
+const inputTitle = document.querySelector(".popup__input_title");
+const popupImageClose = document.querySelector(".popup__close_image-popup");
+const popups = [...document.querySelectorAll(".popup")];
+const popupImageImg = document.querySelector(".popup__img_image-popup");
+const popupImageTitle = document.querySelector(".popup__title_image-popup");
+const photosList = document.querySelector(".photos__list");
+const openedPopup = document.querySelector(".popup_opened");
+const newImageForm = imageFormContainer.querySelector(".popup__form");
 
-export function handleProfileFormSave(evt) {
+function handleProfileFormSave(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
   closePopup(profileFormContainer);
 }
 
-export function handleImageAddFormCreate(evt) {
+function handleImageAddFormCreate(evt) {
   evt.preventDefault();
   const cardData = {
     name: inputTitle.value,
@@ -49,19 +56,22 @@ export function handleImageAddFormCreate(evt) {
   };
   renderCard(cardData);
   closePopup(imageFormContainer);
-  document.querySelector(".reset").reset();
+  newImageForm.reset();
 }
 
-
-const closePopupWithClick = (popupList) => {
-  popupList.forEach((popup) => {
-    popup.addEventListener("click", (evt) => {
-      if (evt.target.matches(".popup")) {
-        closePopup(popup);
-      }
-    });
-  });
-};
+profileFormContainer.addEventListener("submit", handleProfileFormSave);
+imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
+editButton.addEventListener("click", () => openPopup(profileFormContainer));
+profileCloseButton.addEventListener("click", () =>
+  closePopup(profileFormContainer)
+);
+addButton.addEventListener("click", () => openPopup(imageFormContainer));
+imageCloseButton.addEventListener("click", () =>
+  closePopup(imageFormContainer)
+);
+popupImageClose.addEventListener("click", () =>
+  closePopup(imagePopupContainer)
+);
 
 function renderCard(card) {
   const cardElement = new Card(card, "#card-template");
@@ -69,13 +79,19 @@ function renderCard(card) {
   photosList.prepend(newCard);
 }
 
-
 initialCards.forEach((card) => {
   renderCard(card);
 });
-closePopupWithClick(popups);
+addRemoteClickListeners(popups);
 
-const profileFormValidator = new FormValidator(validationConfig, profileFormContainer);
-profileFormValidator.enableValidation();
-const addImageFormValidator = new FormValidator(validationConfig, imageFormContainer);
+const addImageFormValidator = new FormValidator(
+  validationConfig,
+  imageFormContainer
+);
 addImageFormValidator.enableValidation();
+
+const profileFormValidator = new FormValidator(
+  validationConfig,
+  profileFormContainer
+);
+profileFormValidator.enableValidation();

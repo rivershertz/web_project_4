@@ -7,6 +7,8 @@ export default class FormValidator {
     this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
+    this._inputs = Array.from(this._currentForm.querySelectorAll(this._inputSelector));
+    this._button = this._currentForm.querySelector(this._submitButtonSelector);
   }
 
   _showInputError(form, input, errorMessage) {
@@ -32,7 +34,9 @@ export default class FormValidator {
   }
 
   _hasInvalidInput() {
-    this._inputs.some((input) => !input.validity.valid);
+    return this._inputs.some((input) => { 
+      return !input.validity.valid; 
+    }); 
   }
 
   _toggleSubmitButton() {
@@ -46,8 +50,7 @@ export default class FormValidator {
   }
 
   _setEventListeners(form) {
-    this._inputs = Array.from(form.querySelectorAll(this._inputSelector));
-    this._button = form.querySelector(this._submitButtonSelector);
+    
     this._inputs.forEach((input) => {
       input.addEventListener("input", () => {
         this._toggleInputError(form, input);
