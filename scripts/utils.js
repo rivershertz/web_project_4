@@ -9,20 +9,12 @@ function closeByEscape(evt) {
 }
 
 function openPopup(popup) {
-  popup.classList.add(openedPopup);
+  popup.classList.add(".popup_opened");
   document.addEventListener("keydown", closeByEscape);
-  if ((popup = imageFormContainer)) {
-    addImageFormValidator._toggleSubmitButton();
-  }
-  if ((popup = profileFormContainer)) {
-    profileFormValidator._toggleSubmitButton();
-    inputName.value = profileName.textContent;
-    inputAbout.value = profileAbout.textContent;
-  }
-}
+};
 
 function closePopup(popup) {
-  popup.classList.remove(openedPopup);
+  popup.classList.remove(".popup_opened");
   document.removeEventListener("keydown", closeByEscape);
 }
 

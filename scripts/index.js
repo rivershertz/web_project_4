@@ -61,11 +61,19 @@ function handleImageAddFormCreate(evt) {
 
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
-editButton.addEventListener("click", () => openPopup(profileFormContainer));
+editButton.addEventListener("click", () => {
+  profileFormValidator._toggleSubmitButton();
+  inputName.value = profileName.textContent;
+  inputAbout.value = profileAbout.textContent;
+  openPopup(profileFormContainer);
+});
 profileCloseButton.addEventListener("click", () =>
   closePopup(profileFormContainer)
 );
-addButton.addEventListener("click", () => openPopup(imageFormContainer));
+addButton.addEventListener("click", () => {
+  addImageFormValidator._toggleSubmitButton();
+  openPopup(imageFormContainer);
+});
 imageCloseButton.addEventListener("click", () =>
   closePopup(imageFormContainer)
 );
