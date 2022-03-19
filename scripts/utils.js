@@ -9,12 +9,12 @@ function closeByEscape(evt) {
 }
 
 function openPopup(popup) {
-  popup.classList.add(".popup_opened");
+  popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeByEscape);
 };
 
 function closePopup(popup) {
-  popup.classList.remove(".popup_opened");
+  popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closeByEscape);
 }
 
