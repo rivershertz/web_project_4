@@ -4,7 +4,6 @@ import { openPopup, closePopup, addRemoteClickListeners } from "./utils.js";
 import { initialCards, validationConfig } from "./constants.js";
 
 export {
-  openedPopup,
   imagePopupContainer,
   popupImageImg,
   popupImageTitle,
@@ -26,7 +25,6 @@ const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__subtitle");
 const editButton = document.querySelector(".profile__edit");
 const addButton = document.querySelector(".profile__add");
-const imageCreateButton = document.querySelector(".popup__save_image");
 const profileCloseButton = document.querySelector(".popup__close_profile");
 const imageCloseButton = document.querySelector(".popup__close_image");
 const inputName = document.querySelector(".popup__name");
@@ -38,7 +36,6 @@ const popups = [...document.querySelectorAll(".popup")];
 const popupImageImg = document.querySelector(".popup__img_image-popup");
 const popupImageTitle = document.querySelector(".popup__title_image-popup");
 const photosList = document.querySelector(".photos__list");
-const openedPopup = document.querySelector(".popup_opened");
 const newImageForm = imageFormContainer.querySelector(".popup__form");
 
 function handleProfileFormSave(evt) {
@@ -57,21 +54,26 @@ function handleImageAddFormCreate(evt) {
   renderCard(cardData);
   closePopup(imageFormContainer);
   newImageForm.reset();
+  addImageFormValidator.toggleSubmitButton();
+}
+
+const fillProfileForm = () => {
+  inputName.value = profileName.textContent;
+  inputAbout.value = profileAbout.textContent;
 }
 
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
 editButton.addEventListener("click", () => {
-  profileFormValidator._toggleSubmitButton();
-  inputName.value = profileName.textContent;
-  inputAbout.value = profileAbout.textContent;
+  profileFormValidator.toggleSubmitButton();
+  fillProfileForm();
   openPopup(profileFormContainer);
 });
 profileCloseButton.addEventListener("click", () =>
   closePopup(profileFormContainer)
 );
 addButton.addEventListener("click", () => {
-  addImageFormValidator._toggleSubmitButton();
+  addImageFormValidator.toggleSubmitButton();
   openPopup(imageFormContainer);
 });
 imageCloseButton.addEventListener("click", () =>

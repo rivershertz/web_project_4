@@ -39,7 +39,7 @@ export default class FormValidator {
     }); 
   }
 
-  _toggleSubmitButton() {
+  toggleSubmitButton() {
     if (this._hasInvalidInput()) {
       this._button.classList.add(this._inactiveButtonClass);
       this._button.disabled = true;
@@ -62,8 +62,6 @@ export default class FormValidator {
   enableValidation() {
     this._currentForm.addEventListener("submit", (e) => {
       e.preventDefault();
-      this._button.classList.add(this._inactiveButtonClass);
-      this._button.disabled = true;
     });
     this._setEventListeners(this._currentForm);
   }
