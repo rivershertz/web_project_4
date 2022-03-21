@@ -13,14 +13,15 @@ function openPopup(popup) {
 }
 
 function closePopup(popup) {
-  popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", closeByEscape);
+  popup.classList.remove("popup_opened");
+  
 }
 
 const closeByEscape = (evt) => {
   if (evt.code === "Escape") {
-    closePopup(imageFormContainer);
-    closePopup(profileFormContainer);
+    const popup = document.querySelector(".popup_opened")
+    closePopup(popup);
   }
 };
 
