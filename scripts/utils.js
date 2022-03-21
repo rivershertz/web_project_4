@@ -20,8 +20,8 @@ function closePopup(popup) {
 
 const closeByEscape = (evt) => {
   if (evt.code === "Escape") {
-    const popup = document.querySelector(".popup_opened")
-    closePopup(popup);
+    const openedPopup = document.querySelector(".popup_opened")
+    closePopup(openedPopup);
   }
 };
 
