@@ -2,15 +2,15 @@ import { imagePopupContainer, popupImageImg, popupImageTitle } from "./index.js"
 import { openPopup } from "./utils.js";
 
 export default class Card {
-  constructor(data, cardSelector) {
+  constructor(data, templateSelector) {
     this._text = data.name;
     this._link = data.link;
-    this._cardSelector = cardSelector;
+    this._templateSelector = templateSelector;
   }
 
   _getTemplate() {
     const cardElement = document
-      .querySelector(this._cardSelector)
+      .querySelector(this._templateSelector)
       .content.querySelector(".photos__card")
       .cloneNode(true);
 
@@ -20,10 +20,10 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     const imageElement = this._element.querySelector(".photos__img");
-    this._setEventListeners();
     imageElement.src = this._link;
     this._element.querySelector(".photos__title").textContent = this._text;
     imageElement.alt = `picture of ${this._text}`;
+    this._setEventListeners();
     return this._element;
   }
 

@@ -2,6 +2,9 @@ import FormValidator from "./FormValidator.js";
 import Card from "./Card.js";
 import { openPopup, closePopup, addRemoteClickListeners } from "./utils.js";
 import { initialCards, validationConfig } from "./constants.js";
+import Section from "./Section.js";
+
+
 
 export {
   imagePopupContainer,
@@ -89,9 +92,11 @@ function renderCard(card) {
   photosList.prepend(newCard);
 }
 
+
 initialCards.forEach((card) => {
   renderCard(card);
 });
+
 addRemoteClickListeners(popups);
 
 const addImageFormValidator = new FormValidator(

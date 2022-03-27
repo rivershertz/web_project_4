@@ -1,8 +1,3 @@
-import {
-  imageFormContainer,
-  profileFormContainer,
-} from "./index.js";
-
 export { closePopup, closeByEscape, openPopup, addRemoteClickListeners };
 
 
