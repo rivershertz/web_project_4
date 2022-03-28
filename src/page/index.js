@@ -111,3 +111,12 @@ const profileFormValidator = new FormValidator(
   profileFormContainer
 );
 profileFormValidator.enableValidation();
+
+const addInitialCards = new Section({
+    initialCards,
+    renderer: () => {
+
+    },
+  },
+  photosList
+);
