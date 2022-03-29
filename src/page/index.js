@@ -1,9 +1,9 @@
 import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import { openPopup, closePopup, addRemoteClickListeners } from "../components/utils.js";
 import { initialCards, validationConfig } from "../components/constants.js";
 import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
 
 
 
@@ -19,7 +19,7 @@ export {
   inputAbout,
   profileName,
   profileAbout,
-  renderCard,
+  // renderCard,
 };
 
 const imagePopupContainer = document.querySelector(".popup_image-popup");
@@ -46,7 +46,8 @@ function handleProfileFormSave(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
-  closePopup(profileFormContainer);
+  // closePopup(profileFormContainer);
+  profileFormHandler.close();
 }
 
 function handleImageAddFormCreate(evt) {
@@ -55,10 +56,10 @@ function handleImageAddFormCreate(evt) {
     name: inputTitle.value,
     link: inputUrl.value,
   };
-  renderCard(cardData);
-  closePopup(imageFormContainer);
   newImageForm.reset();
   addImageFormValidator.toggleSubmitButton();
+  renderCard(cardData);
+  addImageFormHandler.close();
 }
 
 const fillProfileForm = () => {
@@ -67,56 +68,57 @@ const fillProfileForm = () => {
 }
 
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
+
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
+
 editButton.addEventListener("click", () => {
   profileFormValidator.toggleSubmitButton();
   fillProfileForm();
-  openPopup(profileFormContainer);
+  profileFormHandler.open();
+  profileFormHandler.setEventListeners();
 });
-profileCloseButton.addEventListener("click", () =>
-  closePopup(profileFormContainer)
-);
+
 addButton.addEventListener("click", () => {
   addImageFormValidator.toggleSubmitButton();
-  openPopup(imageFormContainer);
-});
-imageCloseButton.addEventListener("click", () =>
-  closePopup(imageFormContainer)
-);
-popupImageClose.addEventListener("click", () =>
-  closePopup(imagePopupContainer)
-);
-
-function renderCard(card) {
-  const cardElement = new Card(card, "#card-template");
-  const newCard = cardElement.generateCard();
-  photosList.prepend(newCard);
-}
-
-
-initialCards.forEach((card) => {
-  renderCard(card);
+  addImageFormHandler.open();
+  addImageFormHandler.setEventListeners();
 });
 
-addRemoteClickListeners(popups);
+// function renderCard(card) {
+//   const cardElement = new Card(card, "#card-template");
+//   const newCard = cardElement.generateCard();
+//   photosList.prepend(newCard);
+// }
+
+// initialCards.forEach((card) => {
+//   renderCard(card);
+// });
 
 const addImageFormValidator = new FormValidator(
   validationConfig,
   imageFormContainer
 );
-addImageFormValidator.enableValidation();
+
 
 const profileFormValidator = new FormValidator(
   validationConfig,
   profileFormContainer
 );
+
+const profileFormHandler = new Popup (profileFormContainer);
+const addImageFormHandler = new Popup(imageFormContainer);
+
+addImageFormValidator.enableValidation();
 profileFormValidator.enableValidation();
 
 const addInitialCards = new Section({
     initialCards,
-    renderer: () => {
-
-    },
+    renderer: (card) => {
+      const cardElement = new Card(card, "#card-template");
+      const newCard = cardElement.generateCard();
+      addInitialCards.addItem(newCard);
+    }
   },
   photosList
 );
+addInitialCards.renderItems();
