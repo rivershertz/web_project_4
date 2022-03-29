@@ -4,6 +4,7 @@ import Card from "../components/Card.js";
 import { initialCards, validationConfig } from "../components/constants.js";
 import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 
 
@@ -19,7 +20,6 @@ export {
   inputAbout,
   profileName,
   profileAbout,
-  // renderCard,
 };
 
 const imagePopupContainer = document.querySelector(".popup_image-popup");
@@ -46,7 +46,6 @@ function handleProfileFormSave(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
   profileAbout.textContent = inputAbout.value;
-  // closePopup(profileFormContainer);
   profileFormHandler.close();
 }
 
@@ -67,6 +66,10 @@ const fillProfileForm = () => {
   inputAbout.value = profileAbout.textContent;
 }
 
+const handleCardClick = () => {
+  
+}
+
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
 
 imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
@@ -84,21 +87,10 @@ addButton.addEventListener("click", () => {
   addImageFormHandler.setEventListeners();
 });
 
-// function renderCard(card) {
-//   const cardElement = new Card(card, "#card-template");
-//   const newCard = cardElement.generateCard();
-//   photosList.prepend(newCard);
-// }
-
-// initialCards.forEach((card) => {
-//   renderCard(card);
-// });
-
 const addImageFormValidator = new FormValidator(
   validationConfig,
   imageFormContainer
 );
-
 
 const profileFormValidator = new FormValidator(
   validationConfig,
@@ -106,18 +98,23 @@ const profileFormValidator = new FormValidator(
 );
 
 const profileFormHandler = new Popup (profileFormContainer);
+
 const addImageFormHandler = new Popup(imageFormContainer);
 
 addImageFormValidator.enableValidation();
+
 profileFormValidator.enableValidation();
 
 const addInitialCards = new Section({
-    initialCards,
+    items: initialCards,
     renderer: (card) => {
-      const cardElement = new Card(card, "#card-template");
+      const cardElement = new Card(card, "#card-template", () => {
+        const handleCardClick = new PopupWithImage(imagePopupContainer, card)
+        handleCardClick.open();
+      });
       const newCard = cardElement.generateCard();
       addInitialCards.addItem(newCard);
-    }
+    },
   },
   photosList
 );

@@ -2,10 +2,11 @@ import { imagePopupContainer, popupImageImg, popupImageTitle } from "../page/ind
 import { openPopup } from "./utils.js";
 
 export default class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._text = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick
   }
 
   _getTemplate() {
@@ -36,7 +37,7 @@ export default class Card {
       .addEventListener("click", this._removeCard);
     this._element
       .querySelector(".photos__img")
-      .addEventListener("click", this._openImgPopup);
+      .addEventListener("click", this._handleCardClick);
   }
 
   _toggleLikeButton = () => {
@@ -50,10 +51,10 @@ export default class Card {
     this._element = null;
   }
 
-  _openImgPopup = () => {
-    popupImageImg.src = this._link;
-    popupImageImg.alt = `picture of ${this._text}`;
-    popupImageTitle.textContent = this._text;
-    openPopup(imagePopupContainer);
-  };
+  // _openImgPopup = () => {
+  //   popupImageImg.src = this._link;
+  //   popupImageImg.alt = `picture of ${this._text}`;
+  //   popupImageTitle.textContent = this._text;
+  //   openPopup(imagePopupContainer);
+  // };
 };
