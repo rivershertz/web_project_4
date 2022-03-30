@@ -5,7 +5,7 @@ import { initialCards, validationConfig } from "../components/constants.js";
 import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-
+import PopupWithForm from "../components/PopupWithForm.js";
 
 
 export {
@@ -42,6 +42,9 @@ const popupImageTitle = document.querySelector(".popup__title_image-popup");
 const photosList = document.querySelector(".photos__list");
 const newImageForm = imageFormContainer.querySelector(".popup__form");
 
+const test = new PopupWithForm(imageFormContainer, () => {});
+
+
 function handleProfileFormSave(evt) {
   evt.preventDefault();
   profileName.textContent = inputName.value;
@@ -51,23 +54,19 @@ function handleProfileFormSave(evt) {
 
 function handleImageAddFormCreate(evt) {
   evt.preventDefault();
-  const cardData = {
-    name: inputTitle.value,
-    link: inputUrl.value,
-  };
+  // const cardData = {
+  //   name: inputTitle.value,
+  //   link: inputUrl.value,
+  // };
   newImageForm.reset();
   addImageFormValidator.toggleSubmitButton();
-  renderCard(cardData);
+  // renderCard(cardData);
   addImageFormHandler.close();
 }
 
 const fillProfileForm = () => {
   inputName.value = profileName.textContent;
   inputAbout.value = profileAbout.textContent;
-}
-
-const handleCardClick = () => {
-  
 }
 
 profileFormContainer.addEventListener("submit", handleProfileFormSave);
@@ -78,13 +77,11 @@ editButton.addEventListener("click", () => {
   profileFormValidator.toggleSubmitButton();
   fillProfileForm();
   profileFormHandler.open();
-  profileFormHandler.setEventListeners();
 });
 
 addButton.addEventListener("click", () => {
   addImageFormValidator.toggleSubmitButton();
   addImageFormHandler.open();
-  addImageFormHandler.setEventListeners();
 });
 
 const addImageFormValidator = new FormValidator(
@@ -97,9 +94,24 @@ const profileFormValidator = new FormValidator(
   profileFormContainer
 );
 
-const profileFormHandler = new Popup (profileFormContainer);
+const profileFormHandler = new PopupWithForm (profileFormContainer, () => {
+  const addCard = new Section ({
+    items: 
+    renderer: (card) => {
+      const cardElement = new Card(card, "#card-template", () => {
+        const handleCardClick = new PopupWithImage(imagePopupContainer, card)
+        handleCardClick.open();
+      });
+      const newCard = cardElement.generateCard();
+      addCard.addItem(newCard);
+    }
+  })
+});
+profileFormHandler.setEventListeners();
 
-const addImageFormHandler = new Popup(imageFormContainer);
+const addImageFormHandler = new PopupWithForm (imageFormContainer, () => {});
+addImageFormHandler.setEventListeners();
+
 
 addImageFormValidator.enableValidation();
 
@@ -119,3 +131,5 @@ const addInitialCards = new Section({
   photosList
 );
 addInitialCards.renderItems();
+
+

@@ -4,7 +4,6 @@ export default class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick
-    console.log(this._handleCardClick);
   }
 
   _getTemplate() {
@@ -48,11 +47,4 @@ export default class Card {
     this._element.remove();
     this._element = null;
   }
-
-  // _openImgPopup = () => {
-  //   popupImageImg.src = this._link;
-  //   popupImageImg.alt = `picture of ${this._text}`;
-  //   popupImageTitle.textContent = this._text;
-  //   openPopup(imagePopupContainer);
-  // };
 };

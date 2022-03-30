@@ -15,16 +15,18 @@ export default class Popup {
   _handleEscClose = (evt) => {
     if (evt.code === "Escape") {
       this.close();
-    };
-  }
+    }
+  };
 
   setEventListeners() {
-    this._popupCloseButton.addEventListener("click", () => {this.close()});
+    this._popupCloseButton.addEventListener("click", () => {
+      this.close();
+    });
     document.addEventListener("keydown", this._handleEscClose);
     this._popup.addEventListener("mousedown", (evt) => {
-        if (evt.target.matches(".popup")) {
-          this.close();
-        };
-      });
-  };
+      if (evt.target.matches(".popup")) {
+        this.close();
+      }
+    });
+  }
 }
