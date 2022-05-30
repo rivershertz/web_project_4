@@ -15,7 +15,7 @@ export default class Card {
     return cardElement;
   }
 
-  generateCard() {
+  cardTemplateSelector() {
     this._element = this._getTemplate();
     const imageElement = this._element.querySelector(".photos__img");
     imageElement.src = this._link;
@@ -28,13 +28,13 @@ export default class Card {
   _setEventListeners() {
     this._element
       .querySelector(".photos__like")
-      .addEventListener("click", this._toggleLikeButton);
+      .addEventListener("click", () => this._toggleLikeButton());
     this._element
       .querySelector(".photos__remove")
-      .addEventListener("click", this._removeCard);
+      .addEventListener("click", () => this._removeCard());
     this._element
       .querySelector(".photos__img")
-      .addEventListener("click", this._handleCardClick);
+      .addEventListener("click", () => this._handleCardClick());
   }
 
   _toggleLikeButton = () => {
