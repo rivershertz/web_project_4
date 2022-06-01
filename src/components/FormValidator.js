@@ -11,25 +11,31 @@ export default class FormValidator {
     this._submitButton = this._currentForm.querySelector(this._submitButtonSelector);
   }
 
-  _showInputError(form, input, errorMessage) {
-    const error = form.querySelector(`.${input.id}-input-error`);
+  resetValidation() {
+    this._inputs.forEach(input => {
+      this._hideInputError(input)
+    })
+  }
+
+  _showInputError(input, errorMessage) {
+    const error = this._currentForm.querySelector(`.${input.id}-input-error`);
     input.classList.add(this._inputErrorClass);
     error.textContent = errorMessage;
     error.classList.add(this._errorClass);
   }
 
-  _hideInputError(form, input) {
-    const error = form.querySelector(`.${input.id}-input-error`);
+  _hideInputError(input) {
+    const error = this._currentForm.querySelector(`.${input.id}-input-error`);
     input.classList.remove(this._inputErrorClass);
     error.textContent = "";
     error.classList.remove(this._errorClass);
   }
 
-  _toggleInputError(form, input) {
+  _toggleInputError(input) {
     if (!input.validity.valid) {
-      this._showInputError(form, input, input.validationMessage);
+      this._showInputError(input, input.validationMessage);
     } else {
-      this._hideInputError(form, input);
+      this._hideInputError(input);
     }
   }
 
@@ -52,7 +58,7 @@ export default class FormValidator {
   _setEventListeners(form) {
     this._inputs.forEach((input) => {
       input.addEventListener("input", () => {
-        this._toggleInputError(form, input);
+        this._toggleInputError(input);
         this.toggleSubmitButton();
       });
     });

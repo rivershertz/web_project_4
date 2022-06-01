@@ -1,7 +1,17 @@
 import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import { initialCards, validationConfig } from "../components/constants.js";
+import {
+  initialCards,
+  validationConfig,
+  imageFormContainer,
+  editButton,
+  addButton,
+  photosList,
+  profileFormContainer,
+  inputName,
+  inputAbout,
+} from "../components/constants.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -16,72 +26,18 @@ const editModal = new PopupWithForm(".popup_profile", (formData) => {
 editModal.setEventListeners();
 
 const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
-  renderCard({
-    text: formData.title,
+  const card = generateCard({
+    name: formData.title,
     link: formData.link,
-  }, photosList);
+  });
+  renderCards.addItem(card.generateCard());
 });
 addCardModal.setEventListeners();
 
-const userInfo = new UserInfo ({
-  nameSelector: '.profile__name', 
-  aboutSelector:'.profile__subtitle'
-})
-
-export {
-  imagePopupContainer,
-  popupImageImg,
-  popupImageTitle,
-  imageFormContainer,
-  addImageFormValidator,
-  profileFormValidator,
-  profileFormContainer,
-  inputName,
-  inputAbout,
-  profileName,
-  profileAbout,
-};
-
-const cardTemplateSelector = cocument.querySelector("#template");
-const imagePopupContainer = document.querySelector(".popup_image-popup");
-const imageFormContainer = document.querySelector(".popup_new-image");
-const profileFormContainer = document.querySelector(".popup_profile");
-const profileName = document.querySelector(".profile__name");
-const profileAbout = document.querySelector(".profile__subtitle");
-const editButton = document.querySelector(".profile__edit");
-const addButton = document.querySelector(".profile__add");
-const profileCloseButton = document.querySelector(".popup__close_profile");
-const imageCloseButton = document.querySelector(".popup__close_image");
-const inputName = document.querySelector(".popup__name");
-const inputAbout = document.querySelector(".popup__about");
-const imageLink = document.querySelector(".popup__input_url");
-const imageTitle = document.querySelector(".popup__input_title");
-const popupImageClose = document.querySelector(".popup__close_image-popup");
-const popups = [...document.querySelectorAll(".popup")];
-const popupImageImg = document.querySelector(".popup__img_image-popup");
-const popupImageTitle = document.querySelector(".popup__title_image-popup");
-const photosList = document.querySelector(".photos__list");
-const newImageForm = imageFormContainer.querySelector(".popup__form");
-
-// function handleProfileFormSave(evt) {
-//   const userInfoUpdate = new UserInfo({
-//     nameSelector: inputName.value,
-//     aboutSelector: inputAbout.value,
-//   });
-//   const userProfileUpdate = userInfoUpdate.getUserInfo();
-//   profileName.textContent = userProfileUpdate.name;
-//   profileAbout.textContent = userProfileUpdate.about;
-// }
-
-// function handleImageAddFormCreate(evt) {
-//   // const cardData = {
-//   //   name: inputTitle.value,
-//   //   link: inputUrl.value,
-//   // };
-//   newImageForm.reset();
-//   addImageFormValidator.toggleSubmitButton();
-//   // renderCard(cardData);
-// }
+const userInfo = new UserInfo({
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__subtitle",
+});
 
 const fillProfileForm = () => {
   const userProfileInfo = userInfo.getUserInfo();
@@ -89,27 +45,29 @@ const fillProfileForm = () => {
   inputAbout.value = userProfileInfo.about;
 };
 
-profileFormContainer.addEventListener("submit", (evt) => {
-  handleProfileFormSave(evt);
-});
-imageFormContainer.addEventListener("submit", handleImageAddFormCreate);
-
 editButton.addEventListener("click", () => {
   profileFormValidator.toggleSubmitButton();
+  profileFormValidator.resetValidation();
   fillProfileForm();
   editModal.open();
 });
 
 addButton.addEventListener("click", () => {
   addImageFormValidator.toggleSubmitButton();
+  addImageFormValidator.resetValidation();
   addCardModal.open();
 });
 
-const renderCard = (data, photosList) => {
-  const card = new Card(data, cardTemplateSelector, (text, link) => {
-    imageModal.open(text, link);
+const generateCard = (data) => {
+  return new Card(data, "#template", (name, link) => {
+    console.log(name, link);
+    imageModal.open(name, link);
   });
-  photosList.prepend(card.cardTemplateSelector());
+};
+
+const renderCard = (data, photosContainer) => {
+  const card = generateCard(data);
+  photosContainer.prepend(card.generateCard());
 };
 
 const addImageFormValidator = new FormValidator(
@@ -121,23 +79,18 @@ const profileFormValidator = new FormValidator(
   validationConfig,
   profileFormContainer
 );
-
 addImageFormValidator.enableValidation();
 
 profileFormValidator.enableValidation();
 
-const addInitialCards = new Section(
+const renderCards = new Section(
   {
     items: initialCards,
-    renderer: (card) => {
-      const cardElement = new Card(card, "#card-template", () => {
-        const handleCardClick = new PopupWithImage(imagePopupContainer, card);
-        handleCardClick.open();
-      });
-      const newCard = cardElement.generateCard();
-      addInitialCards.addItem(newCard);
+    renderer: (cardData) => {
+      console.log(cardData);
+      renderCard({ name: cardData.name, link: cardData.link }, photosList);
     },
   },
-  photosList
+  ".photos__list"
 );
-addInitialCards.renderItems();
+renderCards.renderItems();
