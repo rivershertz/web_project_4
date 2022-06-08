@@ -30,7 +30,7 @@ const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
     name: formData.title,
     link: formData.link,
   });
-  renderCards.addItem(card.generateCard());
+  cardsSection.addItem(card.generateCard());
 });
 addCardModal.setEventListeners();
 
@@ -60,13 +60,13 @@ addButton.addEventListener("click", () => {
 
 const generateCard = (data) => {
   return new Card(data, "#template", (name, link) => {
-    console.log(name, link);
     imageModal.open(name, link);
   });
 };
 
 const renderCard = (data, photosContainer) => {
   const card = generateCard(data);
+  console.log(card)
   photosContainer.prepend(card.generateCard());
 };
 
@@ -83,14 +83,13 @@ addImageFormValidator.enableValidation();
 
 profileFormValidator.enableValidation();
 
-const renderCards = new Section(
+const cardsSection = new Section(
   {
     items: initialCards,
     renderer: (cardData) => {
-      console.log(cardData);
       renderCard({ name: cardData.name, link: cardData.link }, photosList);
-    },
+    }
   },
   ".photos__list"
 );
-renderCards.renderItems();
+cardsSection.renderItems();

@@ -17,26 +17,24 @@ export default class Card {
 
   generateCard() {
     this._element = this._getTemplate();
+    const imageTitle = this._element.querySelector(".photos__title");
     const imageElement = this._element.querySelector(".photos__img");
     imageElement.src = this._link;
-    this._element.querySelector(".photos__title").textContent = this._text;
     imageElement.alt = `picture of ${this._text}`;
+    imageTitle.textContent = this._text;
     this._setEventListeners();
     return this._element;
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector(".photos__like")
-      .addEventListener("click", () => this._toggleLikeButton());
-    this._element
-      .querySelector(".photos__remove")
-      .addEventListener("click", () => this._removeCard());
-    this._element
-      .querySelector(".photos__img")
-      .addEventListener("click", () =>
-        this._handleCardClick(this._text, this._link)
-      );
+    const likeButton = this._element.querySelector(".photos__like");
+    const removeButton = this._element.querySelector(".photos__remove");
+    const imageElement = this._element.querySelector(".photos__img");
+    likeButton.addEventListener("click", this._toggleLikeButton());
+    removeButton.addEventListener("click", this._removeCard());
+    imageElement.addEventListener("click", () => {
+      this._handleCardClick(this._text, this._link);
+    });
   }
 
   _toggleLikeButton = () => {
