@@ -30,8 +30,8 @@ export default class Card {
     const likeButton = this._element.querySelector(".photos__like");
     const removeButton = this._element.querySelector(".photos__remove");
     const imageElement = this._element.querySelector(".photos__img");
-    likeButton.addEventListener("click", this._toggleLikeButton());
-    removeButton.addEventListener("click", this._removeCard());
+    likeButton.addEventListener("click", this._toggleLikeButton);
+    removeButton.addEventListener("click", this._removeCard);
     imageElement.addEventListener("click", () => {
       this._handleCardClick(this._text, this._link);
     });

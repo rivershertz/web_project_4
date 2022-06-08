@@ -17,10 +17,16 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 
+const userInfo = new UserInfo({
+  nameSelector: ".profile__name",
+  aboutSelector: ".profile__subtitle",
+});
+
 const imageModal = new PopupWithImage(".popup_image-popup");
 imageModal.setEventListeners();
 
 const editModal = new PopupWithForm(".popup_profile", (formData) => {
+  console.log(formData)
   userInfo.setUserInfo(formData);
 });
 editModal.setEventListeners();
@@ -34,10 +40,7 @@ const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
 });
 addCardModal.setEventListeners();
 
-const userInfo = new UserInfo({
-  nameSelector: ".profile__name",
-  aboutSelector: ".profile__subtitle",
-});
+
 
 const fillProfileForm = () => {
   const userProfileInfo = userInfo.getUserInfo();
@@ -66,7 +69,6 @@ const generateCard = (data) => {
 
 const renderCard = (data, photosContainer) => {
   const card = generateCard(data);
-  console.log(card)
   photosContainer.prepend(card.generateCard());
 };
 
