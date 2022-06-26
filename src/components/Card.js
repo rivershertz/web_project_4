@@ -1,9 +1,13 @@
+import { data } from "autoprefixer";
+
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, handleCardRemove) {
     this._text = data.name;
     this._link = data.link;
+    this._id = data.id;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleCardRemove = handleCardRemove;
   }
 
   _getTemplate() {
@@ -31,7 +35,8 @@ export default class Card {
     const removeButton = this._element.querySelector(".photos__remove");
     const imageElement = this._element.querySelector(".photos__img");
     likeButton.addEventListener("click", this._toggleLikeButton);
-    removeButton.addEventListener("click", this._removeCard);
+    removeButton.addEventListener("click", () => {
+      this._handleCardRemove(this._id)});
     imageElement.addEventListener("click", () => {
       this._handleCardClick(this._text, this._link);
     });
@@ -43,7 +48,7 @@ export default class Card {
       .classList.toggle("photos__like_active");
   };
 
-  _removeCard = () => {
+  removeCard = () => {
     this._element.remove();
     this._element = null;
   };
