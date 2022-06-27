@@ -40,7 +40,11 @@ export default class Api {
     });
   }
 
-  getLikes() {}
+  getLikes(cardId) {
+    return reaquringRequest(`${this._baseUrl}/cards/${cardId}`, {
+        headers: this._headers
+    })
+  }
 
   deleteCard(cardId) {
     return reaquringRequest(`${this._baseUrl}/cards/${cardId}`, {

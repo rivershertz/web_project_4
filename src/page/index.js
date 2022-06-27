@@ -18,6 +18,8 @@ import PopupWithDelete from "../components/PopupWithDelete.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 
+let userId;
+
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/cohort-3-en",
   headers: {
@@ -26,15 +28,16 @@ const api = new Api({
   },
 });
 
-// api.getLikes()
-// .then(console.log)
-
-api.getUserInfo().then((res) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+.then(([userData, cardData]) => {
+  userId = userData._id
+  cardsSection.renderItems(cardData)
   userInfo.setUserInfo({
-    profileName: res.name,
-    profileAbout: res.about,
+    profileName: userData.name,
+    profileAbout: userData.about,
   });
-});
+})
+
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
@@ -51,12 +54,9 @@ const editModal = new PopupWithForm(".popup_profile", (formData) => {
 editModal.setEventListeners();
 
 const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
-  const card = generateCard({
-    name: formData.title,
-    link: formData.link,
-  });
+  const card = generateCard(formData);
   cardsSection.addItem(card.generateCard());
-  api.createCard(formData.title, formData.link);
+  api.createCard(formData);
 });
 addCardModal.setEventListeners();
 
@@ -104,30 +104,29 @@ const generateCard = (data) => {
     (id) => {
       confirmDeleteModal.open();
       confirmDeleteModal.setAction(() => {
-        api.deleteCard(id);
         newCard.removeCard();
+        api.deleteCard(id);
       });
-    }
+    }, 
+    userId
   );
   return newCard;
 };
 
 const renderCard = (data, photosContainer) => {
+  console.log(data)
   const card = generateCard(data);
   photosContainer.prepend(card.generateCard());
 };
 
 const cardsSection = new Section(
   {
-    renderer: (formData) => {
+    renderer: (data) => {
       renderCard(
-        { name: formData.name, link: formData.link, id: formData._id },
+        data,
         photosList
       );
     },
   },
   ".photos__list"
 );
-api.getInitialCards().then((res) => {
-  cardsSection.renderItems(res);
-});
