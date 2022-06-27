@@ -26,7 +26,6 @@ const imageModal = new PopupWithImage(".popup_image-popup");
 imageModal.setEventListeners();
 
 const editModal = new PopupWithForm(".popup_profile", (formData) => {
-  console.log(formData)
   userInfo.setUserInfo(formData);
 });
 editModal.setEventListeners();
