@@ -2,8 +2,9 @@
 ### Front-end development - HTML|CSS|JS
 
 #### Description
+This project containes a social media feed clone
 ##### Phase 1
-This project containes a clone feed in a social media fashion, at this stage you can edit the profile "name" and "about me" fields but the values wont be saved after a refresh is done to the page because the site isnt connected to a data-base. In this project, I have implemented my first lines of JavaScript and it was a lot of fun and very interesting to try a different method of creation which is not very visual like css.
+At this stage you can edit the profile "name" and "about me" fields but the values wont be saved after a refresh is done to the page because the site isnt connected to a data-base. In this phase, I have implemented my first lines of JavaScript and it was a lot of fun and very interesting to try a different method of creation which is not very visual like css.
 
 ##### Phase 2
 New features have been added!
