@@ -4,6 +4,7 @@ export default class Card {
     templateSelector,
     handleCardClick,
     handleCardRemove,
+    handleLikes,
     userId
   ) {
     this._userId = userId;
@@ -14,10 +15,11 @@ export default class Card {
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleCardRemove = handleCardRemove;
+    this._handleLikes = handleLikes;
     this._ownerId = data.owner._id;
     this._element = this._getTemplate();
     this._removeButton = this._element.querySelector(".photos__remove");
-    this._data = data;
+    this._likesCounter = this._element.querySelector(".photos__like-counter");
   }
 
   _getTemplate() {
@@ -32,13 +34,16 @@ export default class Card {
   generateCard() {
     const imageTitle = this._element.querySelector(".photos__title");
     const imageElement = this._element.querySelector(".photos__img");
-    const imageLikes = this._element.querySelector(".photos__like-counter");
     imageElement.src = this._link;
     imageElement.alt = `picture of ${this._text}`;
     imageTitle.textContent = this._text;
-    imageLikes.textContent = this._likes.length;
+    this._likesCounter.textContent = this._likes.length;
     if (this._userId !== this._ownerId) {
       this._removeButton.style.display = "none";
+    }
+    const isLiked = this._likes.some((user) => user._id === this._userId)
+    if(isLiked) {
+      this.likeCard(this._likes)
     }
     this._setEventListeners();
     return this._element;
@@ -47,20 +52,38 @@ export default class Card {
   _setEventListeners() {
     const likeButton = this._element.querySelector(".photos__like");
     const imageElement = this._element.querySelector(".photos__img");
-    likeButton.addEventListener("click", this._toggleLikeButton);
-    this._removeButton.addEventListener("click", () => {
-      this._handleCardRemove(this._id);
-    });
+    likeButton.addEventListener("click", () => this._handleLikes(this._id));
+    this._removeButton.addEventListener("click", () => this._handleCardRemove(this._id));
     imageElement.addEventListener("click", () => {
       this._handleCardClick(this._text, this._link);
     });
   }
 
-  _toggleLikeButton = () => {
+  likeCard(newLikes) {
+    this._likes = newLikes
+    this._likesCounter.textContent = this._likes.length;
     this._element
-      .querySelector(".photos__like")
-      .classList.toggle("photos__like_active");
-  };
+    .querySelector(".photos__like")
+    .classList.add("photos__like_active");
+  }
+
+  dislikeCard(newLikes) {
+    this._likes = newLikes
+    this._likesCounter.textContent = this._likes.length;
+    this._element
+    .querySelector(".photos__like")
+    .classList.remove("photos__like_active");
+  }
+
+  isLiked() {
+    return this._likes.some((user) => user._id === this._userId)
+
+  }
+  // _toggleLikeButton = () => {
+  //   this._element
+  //     .querySelector(".photos__like")
+  //     .classList.toggle("photos__like_active");
+  // };
 
   removeCard = () => {
     this._element.remove();

@@ -10,6 +10,8 @@ import {
   profileFormContainer,
   inputName,
   inputAbout,
+  profileAvatar,
+  profilePicFormContainer
 } from "../components/constants.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -28,35 +30,44 @@ const api = new Api({
   },
 });
 
-Promise.all([api.getUserInfo(), api.getInitialCards()])
-.then(([userData, cardData]) => {
-  userId = userData._id
-  cardsSection.renderItems(cardData)
-  userInfo.setUserInfo({
-    profileName: userData.name,
-    profileAbout: userData.about,
-  });
-})
-
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
+  ([userData, cardData]) => {
+    userId = userData._id;
+    cardsSection.renderItems(cardData);
+    userInfo.setUserInfo(userData);
+    userInfo.setUserPic(userData.avatar)
+  }
+);
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   aboutSelector: ".profile__subtitle",
+  avatarSelector: '.profile__pic'
 });
 
 const imageModal = new PopupWithImage(".popup_image-popup");
 imageModal.setEventListeners();
 
 const editModal = new PopupWithForm(".popup_profile", (formData) => {
-  api.setUserInfo(formData.profileName, formData.profileAbout);
-  userInfo.setUserInfo(formData);
+  api.setUserInfo(formData.profileName, formData.profileAbout).then((res) => {
+    userInfo.setUserInfo(res);
+  });
 });
 editModal.setEventListeners();
 
+const editPictureModal = new PopupWithForm('.popup_edit-pic', (formData) => {
+  api.setUserAvatar(formData.link)
+  .then((res) => {
+    userInfo.setUserPic(res.avatar)
+  })
+});
+editPictureModal.setEventListeners();
+
 const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
-  const card = generateCard(formData);
-  cardsSection.addItem(card.generateCard());
-  api.createCard(formData);
+  api.createCard(formData).then((res) => {
+    const card = generateCard(res);
+    cardsSection.addItem(card.generateCard());
+  });
 });
 addCardModal.setEventListeners();
 
@@ -80,6 +91,11 @@ addButton.addEventListener("click", () => {
   addImageFormValidator.resetValidation();
   addCardModal.open();
 });
+profileAvatar.addEventListener("click", () => {
+  profilwPicFormValidator.toggleSubmitButton();
+  profilwPicFormValidator.resetValidation();
+  editPictureModal.open();
+});
 
 const addImageFormValidator = new FormValidator(
   validationConfig,
@@ -91,6 +107,12 @@ const profileFormValidator = new FormValidator(
   profileFormContainer
 );
 addImageFormValidator.enableValidation();
+
+const profilwPicFormValidator = new FormValidator(
+  validationConfig,
+  profilePicFormContainer
+);
+profilwPicFormValidator.enableValidation();
 
 profileFormValidator.enableValidation();
 
@@ -107,14 +129,24 @@ const generateCard = (data) => {
         newCard.removeCard();
         api.deleteCard(id);
       });
-    }, 
+    },
+    (id) => {
+      const likeStatus = newCard.isLiked();
+      if (!likeStatus) {
+        api.addLike(id).then((res) => {
+          newCard.likeCard(res.likes);
+        });
+      } else {
+        api.removeLike(id).then((res) => {
+          newCard.dislikeCard(res.likes)
+        })
+      }
+    },
     userId
   );
   return newCard;
 };
-
 const renderCard = (data, photosContainer) => {
-  console.log(data)
   const card = generateCard(data);
   photosContainer.prepend(card.generateCard());
 };
@@ -122,10 +154,7 @@ const renderCard = (data, photosContainer) => {
 const cardsSection = new Section(
   {
     renderer: (data) => {
-      renderCard(
-        data,
-        photosList
-      );
+      renderCard(data, photosList);
     },
   },
   ".photos__list"

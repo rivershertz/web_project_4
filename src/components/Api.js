@@ -29,7 +29,17 @@ export default class Api {
     });
   }
 
-  createCard(name, link) {
+  setUserAvatar(link) {
+    return reaquringRequest(`${this._baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: link
+      }),
+    });
+  }
+
+  createCard({name, link}) {
     return reaquringRequest(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -52,4 +62,19 @@ export default class Api {
       headers: this._headers
     });
   }
+
+  addLike(cardId) {
+    return reaquringRequest(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: "PUT",
+      headers: this._headers
+    });
+  }
+
+  removeLike(cardId) {
+    return reaquringRequest(`${this._baseUrl}/cards/likes/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers
+    });
+  }
+  
 }
