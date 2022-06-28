@@ -69,7 +69,7 @@ const editPictureModal = new PopupWithForm(
   ".popup_edit-pic",
   (formData) => {
     api
-      .setUserAvatar(formData.link)
+      .setUserAvatar(formData.editLink)
       .then((res) => {
         userInfo.setUserPic(res.avatar);
       })

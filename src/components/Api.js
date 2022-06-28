@@ -39,12 +39,12 @@ export default class Api {
     });
   }
 
-  createCard({name, link}) {
+  createCard({imageName, link}) {
     return reaquringRequest(`${this._baseUrl}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: name,
+        name: imageName,
         link: link,
       }),
     });
