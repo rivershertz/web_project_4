@@ -18,6 +18,6 @@ export default class UserInfo {
     }
 
     setUserPic(link) {
-        this._avatar.src = link
+        this._avatar.style.background = 'url('+link+')';
     }
 }

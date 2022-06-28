@@ -11,18 +11,13 @@
     <header class="header">
       <img
         class="header__logo"
-        src="<%= require('./images/header_logo.png')%>"
+        src= '<%= require('./images/header_logo.png')%>'
         alt="website logo. Around the U.S."
       />
     </header>
-
     <main class="content">
       <section class="profile">
-        <img
-          class="profile__pic"
-          src="<%= require('./images/Profile_pic.jpg')%>"
-          alt="your profile picture"
-        />
+        <div class="profile__pic"></div>
         <div class="profile__info">
           <h1 class="profile__name" id="name">Jacques Cousteau</h1>
           <button class="profile__edit" type="button"></button>
@@ -114,7 +109,7 @@
       </div>
 
       <div class="popup popup_delete">
-        <form class="popup__form reset" novalidate>
+        <form class="popup__form popup__form_delete reset" novalidate>
           <button
             class="popup__close popup__close_image"
             type="button"
@@ -142,7 +137,7 @@
       </div>
 
       <div class="popup popup_edit-pic">
-        <form class="popup__form reset" novalidate>
+        <form class="popup__form popup__form_edit-pic reset" novalidate>
           <button
             class="popup__close popup__close_image"
             type="button"
@@ -151,7 +146,7 @@
           <div class="popup__inputs">
             <input
               id="link"
-              class="popup__input popup__input_url"
+              class="popup__input popup__input_url popup__input_edit-pic"
               type="url"
               placeholder="Image URL"
               required
