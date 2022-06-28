@@ -1,6 +1,6 @@
 import Popup from "./Popup";
 
-export default class PopupWithDelete extends Popup {
+export default class  PopupWithConfirmation extends Popup {
   setAction(action) {
     this._submitHandler = action;
   }

@@ -14,7 +14,8 @@ export {
   photosList,
   profileAvatar,
   profilePicFormContainer,
-  reaquringRequest
+  reaquringRequest,
+  renderSaving
 };
 
 const imagePopupContainer = document.querySelector(".popup_image-popup");
@@ -41,7 +42,19 @@ const validationConfig = {
   errorClass: "popup__error_visible",
 };
 
+function renderSaving (isSaved, form) {
+  if (!isSaved) {
+    isSaved = true;
+    form.querySelector('.popup__save').textContent = 'Saving...';
+    return
+  } 
+  if (isSaved) {
+    form.querySelector('.popup__save').textContent = 'Save'
+  }
+}
+
 const reaquringRequest = (url, headers) =>
   fetch(url, headers)
     .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
     .catch(console.log);
+

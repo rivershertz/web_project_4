@@ -11,12 +11,13 @@ import {
   inputName,
   inputAbout,
   profileAvatar,
-  profilePicFormContainer
+  profilePicFormContainer,
+  renderSaving,
 } from "../components/constants.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithDelete from "../components/PopupWithDelete.js";
+import  PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 
@@ -30,48 +31,74 @@ const api = new Api({
   },
 });
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
-  ([userData, cardData]) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardData]) => {
     userId = userData._id;
     cardsSection.renderItems(cardData);
     userInfo.setUserInfo(userData);
-    userInfo.setUserPic(userData.avatar)
-  }
-);
+    userInfo.setUserPic(userData.avatar);
+  })
+  .catch(console.log);
 
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   aboutSelector: ".profile__subtitle",
-  avatarSelector: '.profile__pic'
+  avatarSelector: ".profile__pic",
 });
 
 const imageModal = new PopupWithImage(".popup_image-popup");
 imageModal.setEventListeners();
 
-const editModal = new PopupWithForm(".popup_profile", (formData) => {
-  api.setUserInfo(formData.profileName, formData.profileAbout).then((res) => {
-    userInfo.setUserInfo(res);
-  });
-});
+const editModal = new PopupWithForm(
+  ".popup_profile",
+  (formData) => {
+    api
+      .setUserInfo(formData.profileName, formData.profileAbout)
+      .then((res) => {
+        userInfo.setUserInfo(res);
+      })
+      .catch(console.log);
+  },
+  (isSaved, form) => {
+    renderSaving(isSaved, form);
+  }
+);
 editModal.setEventListeners();
 
-const editPictureModal = new PopupWithForm('.popup_edit-pic', (formData) => {
-  api.setUserAvatar(formData.link)
-  .then((res) => {
-    userInfo.setUserPic(res.avatar)
-  })
-});
+const editPictureModal = new PopupWithForm(
+  ".popup_edit-pic",
+  (formData) => {
+    api
+      .setUserAvatar(formData.link)
+      .then((res) => {
+        userInfo.setUserPic(res.avatar);
+      })
+      .catch(console.log);
+  },
+  (isSaved, form) => {
+    renderSaving(isSaved, form);
+  }
+);
 editPictureModal.setEventListeners();
 
-const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
-  api.createCard(formData).then((res) => {
-    const card = generateCard(res);
-    cardsSection.addItem(card.generateCard());
-  });
-});
+const addCardModal = new PopupWithForm(
+  ".popup_new-image",
+  (formData) => {
+    api
+      .createCard(formData)
+      .then((res) => {
+        const card = generateCard(res);
+        cardsSection.addItem(card.generateCard());
+      })
+      .catch(console.log);
+  },
+  (isSaved, form) => {
+    renderSaving(isSaved, form);
+  }
+);
 addCardModal.setEventListeners();
 
-const confirmDeleteModal = new PopupWithDelete(".popup_delete");
+const confirmDeleteModal = new PopupWithConfirmation(".popup_delete");
 confirmDeleteModal.setEventListeners();
 
 const fillProfileForm = () => {
@@ -126,20 +153,30 @@ const generateCard = (data) => {
     (id) => {
       confirmDeleteModal.open();
       confirmDeleteModal.setAction(() => {
-        newCard.removeCard();
-        api.deleteCard(id);
+        api
+          .deleteCard(id)
+          .then((res) => {
+            newCard.removeCard();
+          })
+          .catch(console.log);
       });
     },
     (id) => {
       const likeStatus = newCard.isLiked();
       if (!likeStatus) {
-        api.addLike(id).then((res) => {
-          newCard.likeCard(res.likes);
-        });
+        api
+          .addLike(id)
+          .then((res) => {
+            newCard.likeCard(res.likes);
+          })
+          .catch(console.log);
       } else {
-        api.removeLike(id).then((res) => {
-          newCard.dislikeCard(res.likes)
-        })
+        api
+          .removeLike(id)
+          .then((res) => {
+            newCard.dislikeCard(res.likes);
+          })
+          .catch(console.log);
       }
     },
     userId

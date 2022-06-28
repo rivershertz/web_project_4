@@ -23,6 +23,11 @@ Refactoring time!
 All of the website's functionallity is based on classes and modules and they all come together in index.js.
 Webpack has been integrated and now the source files are all compact and fit all browsers.
 
+##### Phase 5
+Working with the server and deploying on Github pages!
+All of the data needed is fetched from the Practicum course server, that means that all of the changes that are made on the website will be saved and the updated data will be loaded after refresh!!! the feeling of creating a fully functional website from scratch, A-Z is absolutely amazing!
+Ive sharpend my coding skills and deepened my understanding of destructoring, promises and working with modules while keeping them as universal as possible.
+
 ##### Technologies
 * HTML
 * css
