@@ -12,14 +12,13 @@ import {
   inputAbout,
   profileAvatar,
   profilePicFormContainer,
-  renderSaving,
 } from "../components/constants.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import  PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
-import Api from "../components/Api.js";
+import {Api, renderSaving} from "../components/utils";
 
 let userId;
 
@@ -162,22 +161,25 @@ const generateCard = (data) => {
       });
     },
     (id) => {
-      const likeStatus = newCard.isLiked();
-      if (!likeStatus) {
+      // const likeStatus = newCard._;
+      // if (!newCard.likeStatus()) {
+        console.log(data, newCard.likeStatus())
         api
           .addLike(id)
           .then((res) => {
-            newCard.likeCard(res.likes);
+            newCard.updateLikes(res.likes);
+            console.log(newCard.likeStatus())
           })
           .catch(console.log);
-      } else {
-        api
-          .removeLike(id)
-          .then((res) => {
-            newCard.dislikeCard(res.likes);
-          })
-          .catch(console.log);
-      }
+      // } else {
+      //   console.log(data)
+      //   api
+      //     .removeLike(id)
+      //     .then((res) => {
+      //       newCard.updateLikes(res.likes);
+      //     })
+      //     .catch(console.log);
+      // }
     },
     userId
   );

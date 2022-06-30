@@ -20,6 +20,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._removeButton = this._element.querySelector(".photos__remove");
     this._likesCounter = this._element.querySelector(".photos__like-counter");
+    this._isLiked = this._likes.some((user) => user._id === this._userId)
   }
 
   _getTemplate() {
@@ -41,10 +42,7 @@ export default class Card {
     if (this._userId !== this._ownerId) {
       this._removeButton.style.display = "none";
     }
-    const isLiked = this._likes.some((user) => user._id === this._userId)
-    if(isLiked) {
-      this.likeCard(this._likes)
-    }
+    this._renderLikes();
     this._setEventListeners();
     return this._element;
   }
@@ -59,34 +57,38 @@ export default class Card {
     });
   }
 
-  likeCard(newLikes) {
-    this._likes = newLikes
-    this._likesCounter.textContent = this._likes.length;
-    this._element
-    .querySelector(".photos__like")
-    .classList.add("photos__like_active");
+  likeStatus() {
+    return this._likes.some((user) => {user.id === this._userId})
   }
-
-  dislikeCard(newLikes) {
-    this._likes = newLikes
-    this._likesCounter.textContent = this._likes.length;
-    this._element
-    .querySelector(".photos__like")
-    .classList.remove("photos__like_active");
-  }
-
-  isLiked() {
-    return this._likes.some((user) => user._id === this._userId)
-
-  }
-  // _toggleLikeButton = () => {
-  //   this._element
-  //     .querySelector(".photos__like")
-  //     .classList.toggle("photos__like_active");
-  // };
 
   removeCard = () => {
     this._element.remove();
     this._element = null;
   };
-}
+
+  updateLikes(likes) {
+    this._likes = likes; 
+    this._renderLikes(); 
+  }
+  
+  _renderLikes() {
+    this._likesCounter.textContent = this._likes.length;
+    this._element
+    .querySelector(".photos__like")
+    .classList.add("photos__like_active");
+    // if(!this._isLiked) {
+    //   this._element
+    // .querySelector(".photos__like")
+    // .classList.remove("photos__like_active");
+    // } else {
+    //   console.log(this._isLiked)
+    //   this._element
+    // .querySelector(".photos__like")
+    // .classList.add("photos__like_active");
+    // }
+  }
+ }
+
+
+
+

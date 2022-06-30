@@ -13,9 +13,7 @@ export {
   profileAbout,
   photosList,
   profileAvatar,
-  profilePicFormContainer,
-  reaquringRequest,
-  renderSaving
+  profilePicFormContainer
 };
 
 const imagePopupContainer = document.querySelector(".popup_image-popup");
@@ -53,8 +51,4 @@ function renderSaving (isSaved, form) {
   }
 }
 
-const reaquringRequest = (url, headers) =>
-  fetch(url, headers)
-    .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-    .catch(console.log);
 
