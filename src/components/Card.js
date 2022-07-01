@@ -20,7 +20,6 @@ export default class Card {
     this._element = this._getTemplate();
     this._removeButton = this._element.querySelector(".photos__remove");
     this._likesCounter = this._element.querySelector(".photos__like-counter");
-    this._isLiked = this._likes.some((user) => user._id === this._userId)
   }
 
   _getTemplate() {
@@ -50,16 +49,16 @@ export default class Card {
   _setEventListeners() {
     const likeButton = this._element.querySelector(".photos__like");
     const imageElement = this._element.querySelector(".photos__img");
-    likeButton.addEventListener("click", () => this._handleLikes(this._id));
-    this._removeButton.addEventListener("click", () => this._handleCardRemove(this._id));
+    likeButton.addEventListener("click", () => this._handleLikes(this));
+    this._removeButton.addEventListener("click", () =>
+      this._handleCardRemove(this._id)
+    );
     imageElement.addEventListener("click", () => {
       this._handleCardClick(this._text, this._link);
     });
   }
 
-  likeStatus() {
-    return this._likes.some((user) => {user.id === this._userId})
-  }
+  isLiked = () => this._likes.some(user => user._id === this._userId);
 
   removeCard = () => {
     this._element.remove();
@@ -67,28 +66,20 @@ export default class Card {
   };
 
   updateLikes(likes) {
-    this._likes = likes; 
-    this._renderLikes(); 
+    this._likes = likes;
+    this._renderLikes();
   }
-  
+
   _renderLikes() {
     this._likesCounter.textContent = this._likes.length;
-    this._element
-    .querySelector(".photos__like")
-    .classList.add("photos__like_active");
-    // if(!this._isLiked) {
-    //   this._element
-    // .querySelector(".photos__like")
-    // .classList.remove("photos__like_active");
-    // } else {
-    //   console.log(this._isLiked)
-    //   this._element
-    // .querySelector(".photos__like")
-    // .classList.add("photos__like_active");
-    // }
+    if (!this.isLiked()) {
+      this._element
+        .querySelector(".photos__like")
+        .classList.remove("photos__like_active");
+    } else {
+      this._element
+        .querySelector(".photos__like")
+        .classList.add("photos__like_active");
+    }
   }
- }
-
-
-
-
+}

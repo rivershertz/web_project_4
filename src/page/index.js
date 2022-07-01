@@ -12,13 +12,14 @@ import {
   inputAbout,
   profileAvatar,
   profilePicFormContainer,
+  deleteFormContainer,
 } from "../components/constants.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import  PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
-import {Api, renderSaving} from "../components/utils";
+import { Api, renderSaving } from "../components/utils";
 
 let userId;
 
@@ -48,53 +49,47 @@ const userInfo = new UserInfo({
 const imageModal = new PopupWithImage(".popup_image-popup");
 imageModal.setEventListeners();
 
-const editModal = new PopupWithForm(
-  ".popup_profile",
-  (formData) => {
-    api
-      .setUserInfo(formData.profileName, formData.profileAbout)
-      .then((res) => {
-        userInfo.setUserInfo(res);
-      })
-      .catch(console.log);
-  },
-  (isSaved, form) => {
-    renderSaving(isSaved, form);
-  }
-);
+const editModal = new PopupWithForm(".popup_profile", (formData) => {
+  renderSaving(true, profileFormContainer);
+  api
+    .setUserInfo(formData.profileName, formData.profileAbout)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+      editModal.close();
+      profileFormContainer.querySelector(".popup__form").reset();
+    })
+    .catch(console.log);
+  renderSaving(true, profileFormContainer);
+});
 editModal.setEventListeners();
 
-const editPictureModal = new PopupWithForm(
-  ".popup_edit-pic",
-  (formData) => {
-    api
-      .setUserAvatar(formData.editLink)
-      .then((res) => {
-        userInfo.setUserPic(res.avatar);
-      })
-      .catch(console.log);
-  },
-  (isSaved, form) => {
-    renderSaving(isSaved, form);
-  }
-);
+const editPictureModal = new PopupWithForm(".popup_edit-pic", (formData) => {
+  renderSaving(true, profilePicFormContainer);
+  api
+    .setUserAvatar(formData.editLink)
+    .then((res) => {
+      userInfo.setUserPic(res.avatar);
+      editPictureModal.close();
+      imageFormContainer.querySelector(".popup__form").reset();
+    })
+    .catch(console.log);
+  renderSaving(true, profilePicFormContainer);
+});
 editPictureModal.setEventListeners();
 
-const addCardModal = new PopupWithForm(
-  ".popup_new-image",
-  (formData) => {
-    api
-      .createCard(formData)
-      .then((res) => {
-        const card = generateCard(res);
-        cardsSection.addItem(card.generateCard());
-      })
-      .catch(console.log);
-  },
-  (isSaved, form) => {
-    renderSaving(isSaved, form);
-  }
-);
+const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
+  renderSaving(false, imageFormContainer);
+  api
+    .createCard(formData)
+    .then((res) => {
+      const card = generateCard(res);
+      cardsSection.addItem(card.generateCard());
+      addCardModal.close();
+      imageFormContainer.querySelector(".popup__form").reset();
+    })
+    .catch(console.log);
+  renderSaving(true, imageFormContainer);
+});
 addCardModal.setEventListeners();
 
 const confirmDeleteModal = new PopupWithConfirmation(".popup_delete");
@@ -125,7 +120,7 @@ profileAvatar.addEventListener("click", () => {
 
 const addImageFormValidator = new FormValidator(
   validationConfig,
-  imageFormContainer
+  profilePicFormContainer
 );
 
 const profileFormValidator = new FormValidator(
@@ -152,34 +147,32 @@ const generateCard = (data) => {
     (id) => {
       confirmDeleteModal.open();
       confirmDeleteModal.setAction(() => {
+        renderSaving(false, deleteFormContainer);
         api
           .deleteCard(id)
           .then((res) => {
             newCard.removeCard();
           })
           .catch(console.log);
+        renderSaving(true, deleteFormContainer);
       });
     },
-    (id) => {
-      // const likeStatus = newCard._;
-      // if (!newCard.likeStatus()) {
-        console.log(data, newCard.likeStatus())
+    (card) => {
+      if (!card.isLiked()) {
         api
-          .addLike(id)
+          .addLike(card._id)
           .then((res) => {
-            newCard.updateLikes(res.likes);
-            console.log(newCard.likeStatus())
+            card.updateLikes(res.likes);
           })
           .catch(console.log);
-      // } else {
-      //   console.log(data)
-      //   api
-      //     .removeLike(id)
-      //     .then((res) => {
-      //       newCard.updateLikes(res.likes);
-      //     })
-      //     .catch(console.log);
-      // }
+      } else {
+        api
+          .removeLike(card._id)
+          .then((res) => {
+            card.updateLikes(res.likes);
+          })
+          .catch(console.log);
+      }
     },
     userId
   );

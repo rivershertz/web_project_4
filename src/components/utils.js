@@ -1,9 +1,4 @@
-export { closePopup, closeByEscape, openPopup, addRemoteClickListeners, renderSaving, Api };
-
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeByEscape);
-}
+export { closePopup, closeByEscape, addRemoteClickListeners, renderSaving, Api };
 
 function closePopup(popup) {
   document.removeEventListener("keydown", closeByEscape);
@@ -30,11 +25,10 @@ const addRemoteClickListeners = (popupList) => {
 const reaquringRequest = (url, headers) =>
   fetch(url, headers)
     .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-    .catch(console.log);
+
 
 function renderSaving(isSaved, form) {
   if (!isSaved) {
-    isSaved = true;
     form.querySelector(".popup__save").textContent = "Saving...";
     return;
   }

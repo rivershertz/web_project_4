@@ -13,13 +13,15 @@ export {
   profileAbout,
   photosList,
   profileAvatar,
-  profilePicFormContainer
+  profilePicFormContainer,
+  deleteFormContainer
 };
 
 const imagePopupContainer = document.querySelector(".popup_image-popup");
 const imageFormContainer = document.querySelector(".popup_new-image");
 const profilePicFormContainer = document.querySelector(".popup_edit-pic");
 const profileFormContainer = document.querySelector(".popup_profile");
+const deleteFormContainer = document.querySelector(".popup_delete");
 const profileName = document.querySelector(".profile__name");
 const profileAbout = document.querySelector(".profile__subtitle");
 const editButton = document.querySelector(".profile__edit");
@@ -39,16 +41,3 @@ const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
-
-function renderSaving (isSaved, form) {
-  if (!isSaved) {
-    isSaved = true;
-    form.querySelector('.popup__save').textContent = 'Saving...';
-    return
-  } 
-  if (isSaved) {
-    form.querySelector('.popup__save').textContent = 'Save'
-  }
-}
-
-
