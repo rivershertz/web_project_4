@@ -37,7 +37,6 @@ export default class Card {
     imageElement.src = this._link;
     imageElement.alt = `picture of ${this._text}`;
     imageTitle.textContent = this._text;
-    this._likesCounter.textContent = this._likes.length;
     if (this._userId !== this._ownerId) {
       this._removeButton.style.display = "none";
     }

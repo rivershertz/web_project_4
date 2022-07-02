@@ -55,7 +55,7 @@ export default class FormValidator {
     }
   }
 
-  _setEventListeners(form) {
+  _setEventListeners() {
     this._inputs.forEach((input) => {
       input.addEventListener("input", () => {
         this._toggleInputError(input);
@@ -68,6 +68,6 @@ export default class FormValidator {
     this._currentForm.addEventListener("submit", (e) => {
       e.preventDefault();
     });
-    this._setEventListeners(this._currentForm);
+    this._setEventListeners();
   }
 }

@@ -1,6 +1,13 @@
 import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import Api from "../utils/Api.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
+import UserInfo from "../components/UserInfo.js";
+import { renderSaving } from "../components/utils";
 import {
   validationConfig,
   imageFormContainer,
@@ -13,13 +20,7 @@ import {
   profileAvatar,
   profilePicFormContainer,
   deleteFormContainer,
-} from "../components/constants.js";
-import Section from "../components/Section.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
-import UserInfo from "../components/UserInfo.js";
-import { Api, renderSaving } from "../components/utils";
+} from "../utils/constants";
 
 let userId;
 
@@ -40,6 +41,24 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   })
   .catch(console.log);
 
+const addImageFormValidator = new FormValidator(
+  validationConfig,
+  imageFormContainer
+);
+addImageFormValidator.enableValidation();
+
+const profileFormValidator = new FormValidator(
+  validationConfig,
+  profileFormContainer
+);
+profileFormValidator.enableValidation();
+
+const profilePicFormValidator = new FormValidator(
+  validationConfig,
+  profilePicFormContainer
+);
+profilePicFormValidator.enableValidation();
+
 const userInfo = new UserInfo({
   nameSelector: ".profile__name",
   aboutSelector: ".profile__subtitle",
@@ -50,7 +69,7 @@ const imageModal = new PopupWithImage(".popup_image-popup");
 imageModal.setEventListeners();
 
 const editModal = new PopupWithForm(".popup_profile", (formData) => {
-  renderSaving(true, profileFormContainer);
+  renderSaving(false, profileFormContainer);
   api
     .setUserInfo(formData.profileName, formData.profileAbout)
     .then((res) => {
@@ -58,22 +77,28 @@ const editModal = new PopupWithForm(".popup_profile", (formData) => {
       editModal.close();
       profileFormContainer.querySelector(".popup__form").reset();
     })
-    .catch(console.log);
-  renderSaving(true, profileFormContainer);
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      renderSaving(true, profileFormContainer);
+    });
 });
 editModal.setEventListeners();
 
 const editPictureModal = new PopupWithForm(".popup_edit-pic", (formData) => {
-  renderSaving(true, profilePicFormContainer);
+  renderSaving(false, profilePicFormContainer);
   api
     .setUserAvatar(formData.editLink)
     .then((res) => {
       userInfo.setUserPic(res.avatar);
       editPictureModal.close();
-      imageFormContainer.querySelector(".popup__form").reset();
+      profilePicFormContainer.querySelector(".popup__form").reset();
     })
-    .catch(console.log);
-  renderSaving(true, profilePicFormContainer);
+    .catch(console.log)
+    .finally(() => {
+      renderSaving(true, profilePicFormContainer);
+    });
 });
 editPictureModal.setEventListeners();
 
@@ -87,8 +112,10 @@ const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
       addCardModal.close();
       imageFormContainer.querySelector(".popup__form").reset();
     })
-    .catch(console.log);
-  renderSaving(true, imageFormContainer);
+    .catch(console.log)
+    .finally(() => {
+      renderSaving(true, imageFormContainer);
+    });
 });
 addCardModal.setEventListeners();
 
@@ -108,34 +135,15 @@ editButton.addEventListener("click", () => {
   editModal.open();
 });
 addButton.addEventListener("click", () => {
-  addImageFormValidator.toggleSubmitButton();
   addImageFormValidator.resetValidation();
+  addImageFormValidator.toggleSubmitButton();
   addCardModal.open();
 });
 profileAvatar.addEventListener("click", () => {
-  profilwPicFormValidator.toggleSubmitButton();
-  profilwPicFormValidator.resetValidation();
+  profilePicFormValidator.toggleSubmitButton();
+  profilePicFormValidator.resetValidation();
   editPictureModal.open();
 });
-
-const addImageFormValidator = new FormValidator(
-  validationConfig,
-  profilePicFormContainer
-);
-
-const profileFormValidator = new FormValidator(
-  validationConfig,
-  profileFormContainer
-);
-addImageFormValidator.enableValidation();
-
-const profilwPicFormValidator = new FormValidator(
-  validationConfig,
-  profilePicFormContainer
-);
-profilwPicFormValidator.enableValidation();
-
-profileFormValidator.enableValidation();
 
 const generateCard = (data) => {
   const newCard = new Card(
@@ -152,6 +160,7 @@ const generateCard = (data) => {
           .deleteCard(id)
           .then((res) => {
             newCard.removeCard();
+            confirmDeleteModal.close();
           })
           .catch(console.log);
         renderSaving(true, deleteFormContainer);

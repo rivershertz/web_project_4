@@ -1,4 +1,4 @@
-import { reaquringRequest, Api } from "./constants.js";
+import {reaquringRequest} from '../components/utils.js'
 
 export default class Api {
   constructor({ baseUrl, headers }) {
