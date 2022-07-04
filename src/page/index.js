@@ -2,12 +2,12 @@ import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import Api from "../utils/Api.js";
+import Api from "../components/Api.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 import UserInfo from "../components/UserInfo.js";
-import { renderSaving } from "../components/utils";
+import { renderSaving } from "../utils/utils.js";
 import {
   validationConfig,
   imageFormContainer,
@@ -20,7 +20,7 @@ import {
   profileAvatar,
   profilePicFormContainer,
   deleteFormContainer,
-} from "../utils/constants";
+} from "../utils/constants.js";
 
 let userId;
 
@@ -81,7 +81,7 @@ const editModal = new PopupWithForm(".popup_profile", (formData) => {
       console.log(err);
     })
     .finally(() => {
-      renderSaving(true, profileFormContainer);
+      renderSaving(true, profileFormContainer, 'Save');
     });
 });
 editModal.setEventListeners();
@@ -97,7 +97,7 @@ const editPictureModal = new PopupWithForm(".popup_edit-pic", (formData) => {
     })
     .catch(console.log)
     .finally(() => {
-      renderSaving(true, profilePicFormContainer);
+      renderSaving(true, profilePicFormContainer, 'Save');
     });
 });
 editPictureModal.setEventListeners();
@@ -114,7 +114,7 @@ const addCardModal = new PopupWithForm(".popup_new-image", (formData) => {
     })
     .catch(console.log)
     .finally(() => {
-      renderSaving(true, imageFormContainer);
+      renderSaving(true, imageFormContainer, 'Create');
     });
 });
 addCardModal.setEventListeners();
@@ -162,8 +162,10 @@ const generateCard = (data) => {
             newCard.removeCard();
             confirmDeleteModal.close();
           })
-          .catch(console.log);
-        renderSaving(true, deleteFormContainer);
+          .catch(console.log)
+          .finally(() => {
+            renderSaving(true, deleteFormContainer, 'Yes');
+          });
       });
     },
     (card) => {

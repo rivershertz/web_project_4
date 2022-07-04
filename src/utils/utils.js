@@ -22,14 +22,7 @@ const reaquringRequest = (url, headers) =>
     .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
 
 
-function renderSaving(isSaved, form) {
-  if (!isSaved) {
-    form.querySelector(".popup__save").textContent = "Saving...";
-  } else {
-    if(form != document.querySelector('.popup_new-image')) {
-      form.querySelector(".popup__save").textContent = "Save";
-    } else {
-      form.querySelector(".popup__save").textContent = "Create";
-    }
+function renderSaving(isSaved, form, buttonText) {
+  const button = form.querySelector(".popup__save")
+  button.textContent = isSaved ? buttonText : "Saving..."
   }
- }
